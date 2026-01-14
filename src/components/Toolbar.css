@@ -11,7 +11,7 @@
 .toolbar-name {
   font-size: 18px;
   font-weight: 600;
-  color: #1d1d1f;
+  color: #52681D;
   white-space: nowrap;
   flex-shrink: 0;
 }
@@ -31,13 +31,14 @@
   justify-content: center;
   cursor: pointer;
   border-radius: 6px;
-  color: #1d1d1f;
-  transition: background-color 0.1s;
+  color: #52681D;
+  transition: color 0.1s, background-color 0.1s;
   flex-shrink: 0;
 }
 
 .toolbar-icon:hover {
   background-color: #F5F5F7;
+  color: #BAC67A;
 }
 
 .toolbar-icon.active {
@@ -80,11 +81,12 @@
   .toolbar-icon {
     width: 28px;
     height: 28px;
-    color: #1d1d1f;
+    color: #52681D;
   }
 
   .toolbar-icon:hover {
     background-color: #F5F5F7;
+    color: #BAC67A;
   }
 
   .toolbar-icon.active {

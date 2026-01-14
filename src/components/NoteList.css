@@ -6,6 +6,7 @@
   flex-direction: column;
   height: 100vh;
   flex-shrink: 0;
+  --note-list-hover-color: #BAC67A;
 }
 
 .note-list-header {
@@ -59,7 +60,7 @@
 }
 
 .note-item:hover {
-  background-color: transparent;
+  background-color: var(--note-list-hover-color);
 }
 
 .note-item.selected {
@@ -131,7 +132,7 @@
   }
 
   .note-item:hover {
-    background-color: transparent;
+    background-color: var(--note-list-hover-color);
   }
 
   .note-item.selected {

@@ -6,7 +6,7 @@
   flex-direction: column;
   height: 100vh;
   flex-shrink: 0;
-  --sidebar-hover-color: #F0EFEB;
+  --sidebar-hover-color: #BAC67A;
 }
 
 .sidebar-content {

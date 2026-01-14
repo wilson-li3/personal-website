@@ -74,10 +74,10 @@ function Home() {
                 </ul>
               </li>
               <li>
-                <Link to="/about" className="home-note-link">about me</Link>
+                <Link to="/about" className="home-note-link">- about me</Link>
               </li>
               <li>
-                <Link to="/projects" className="home-note-link">projects</Link>
+                <Link to="/projects" className="home-note-link">- projects</Link>
               </li>
             </ul>
             <div className="home-video-wrapper">
