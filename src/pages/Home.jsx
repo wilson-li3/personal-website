@@ -21,6 +21,14 @@ function Home() {
     }
   }
 
+  const handleReplay = () => {
+    const video = videoRef.current
+    if (video) {
+      video.currentTime = 0
+      video.play()
+    }
+  }
+
   const currentDate = new Date()
   const formattedDate = currentDate.toLocaleDateString('en-US', { 
     month: 'long', 
@@ -39,22 +47,48 @@ function Home() {
         <Toolbar />
         <div className="page-date">{formattedDate} at {formattedTime}</div>
       </div>
-      <div className="page-content">
-        <div className="home-video-container">
-          <video
-            ref={videoRef}
-            src={videoSrc}
-            className="home-video"
-            autoPlay
-            muted
-            playsInline
-            onEnded={handleVideoEnded}
-          />
-          <p className="home-video-text">Software Engineering at the University of Waterloo</p>
+      <div className="page-content home-note">
+        <div className="home-note-header">
+          <h1 className="home-note-title">wilson — personal notes</h1>
+          <div className="home-note-subtitle">last edited just now</div>
         </div>
-        <h1>Welcome to My Personal Website</h1>
-        <p>This is my digital space where I share my thoughts, projects, and experiences.</p>
-        <p>Feel free to explore the different sections using the sidebar navigation.</p>
+        <div className="home-note-body">
+          <p>things I'm thinking about lately</p>
+          <br />
+          <p>building software that feels calm</p>
+          <p>small details people don't notice</p>
+          <p>how tools shape how we think</p>
+          <br />
+          <p>currently:</p>
+          <div className="home-note-currently-wrapper">
+            <ul className="home-note-list">
+              <li>
+                – studying software engineering at waterloo
+                <ul className="home-note-nested-list">
+                  <li className="home-note-nested-item">
+                    <span className="home-note-nested-text">click here to watch me draw my smiski waterloo crest again</span>
+                    <button className="replay-button-inline" onClick={handleReplay}>
+                      ↻
+                    </button>
+                  </li>
+                </ul>
+              </li>
+              <li>– building things on the web</li>
+              <li>– writing code like journal entries</li>
+            </ul>
+            <div className="home-video-wrapper">
+              <video
+                ref={videoRef}
+                src={videoSrc}
+                className="home-video-inline"
+                autoPlay
+                muted
+                playsInline
+                onEnded={handleVideoEnded}
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )
