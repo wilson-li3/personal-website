@@ -1,4 +1,5 @@
 import { useRef, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import Toolbar from '../components/Toolbar'
 import './Page.css'
 import videoSrc from '../images/waterloocrestsmiski.mp4'
@@ -72,8 +73,12 @@ function Home() {
                   </li>
                 </ul>
               </li>
-              <li>– building out my ideas one project at a time</li>
-              <li>– writing code like journal entries</li>
+              <li>
+                <Link to="/about" className="home-note-link">about me</Link>
+              </li>
+              <li>
+                <Link to="/projects" className="home-note-link">projects</Link>
+              </li>
             </ul>
             <div className="home-video-wrapper">
               <video

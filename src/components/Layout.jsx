@@ -14,7 +14,7 @@ function Layout({ children }) {
   const notes = [
     { id: 'home', path: '/', title: 'Home', preview: 'Welcome to my personal website', date: new Date() },
     { id: 'about', path: '/about', title: 'About', preview: 'Learn more about me and my background', date: new Date(Date.now() - 86400000) },
-    { id: 'projects', path: '/projects', title: 'Projects', preview: 'Check out my recent work and projects', date: new Date(Date.now() - 2 * 86400000) },
+    { id: 'projects', path: '/projects', title: 'Projects', preview: 'Check out my recent work and projects', date: new Date(Date.now() - 86400000) },
     { id: 'contact', path: '/contact', title: 'Contact', preview: 'Get in touch with me', date: new Date(Date.now() - 3 * 86400000) },
   ]
 

@@ -130,6 +130,18 @@
   line-height: 1.6;
 }
 
+.home-note-link {
+  color: #1d1d1f;
+  text-decoration: underline;
+  text-decoration-color: #86868b;
+  text-underline-offset: 2px;
+  transition: color 0.15s;
+}
+
+.home-note-link:hover {
+  color: #86868b;
+}
+
 .home-note-nested-list {
   list-style: none;
   margin: 4px 0 0 20px;
