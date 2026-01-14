@@ -67,6 +67,32 @@
   line-height: 1.6;
 }
 
+.home-video-container {
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.home-video {
+  width: 100%;
+  max-width: 150px;
+  height: auto;
+  border-radius: 0;
+  box-shadow: none;
+  outline: none;
+  border: none;
+}
+
+.home-video-text {
+  font-size: 16px;
+  font-weight: 500;
+  color: #1d1d1f;
+  margin: 0;
+  text-align: left;
+}
+
 /* Mobile styles */
 @media (max-width: 768px) {
   .page {
@@ -106,5 +132,13 @@
 
   .page-content li {
     color: #1d1d1f;
+  }
+
+  .home-video {
+    max-width: 100%;
+  }
+
+  .home-video-text {
+    font-size: 14px;
   }
 }
