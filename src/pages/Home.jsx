@@ -53,11 +53,10 @@ function Home() {
           <div className="home-note-subtitle">last edited just now</div>
         </div>
         <div className="home-note-body">
-          <p>things I'm thinking about lately</p>
+          <p>notes has become a go to app for me. whether that is scribbling down tim horton's orders for my friends, writing down my thoughts, or reminders of what my friends love, what ive realized is that my notes have become a memorabilia of who I am today.</p>
           <br />
-          <p>building software that feels calm</p>
-          <p>small details people don't notice</p>
-          <p>how tools shape how we think</p>
+          <p>here's a glimpse into my life.</p>
+          <p>not everything about me, but enough to take note</p>
           <br />
           <p>currently:</p>
           <div className="home-note-currently-wrapper">
@@ -73,7 +72,7 @@ function Home() {
                   </li>
                 </ul>
               </li>
-              <li>– building things on the web</li>
+              <li>– building out my ideas one project at a time</li>
               <li>– writing code like journal entries</li>
             </ul>
             <div className="home-video-wrapper">
