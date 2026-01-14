@@ -19,7 +19,7 @@
 .note-list-header-title {
   font-size: 34px;
   font-weight: 700;
-  color: #1d1d1f;
+  color: #52681D;
   margin-bottom: 4px;
 }
 
@@ -41,7 +41,7 @@
 .note-group-header {
   font-size: 13px;
   font-weight: 600;
-  color: #1d1d1f;
+  color: #52681D;
   padding: 12px 16px 6px;
   margin-top: 0;
 }
@@ -64,14 +64,14 @@
 }
 
 .note-item.selected {
-  background-color: #E8E8ED;
+  background-color: #BAC67A;
   border-left: none;
 }
 
 .note-item-title {
   font-size: 14px;
   font-weight: 600;
-  color: #1d1d1f;
+  color: #52681D;
   margin-bottom: 0px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -81,12 +81,18 @@
 
 .note-item-preview {
   font-size: 12px;
-  color: #86868b;
+  color: #BAC67A;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   line-height: 1.4;
   margin-top: 1px;
+  transition: color 0.1s;
+}
+
+.note-item:hover .note-item-preview,
+.note-item.selected .note-item-preview {
+  color: #ffffff;
 }
 
 /* Mobile styles */
@@ -111,7 +117,7 @@
   .note-group-header {
     font-size: 13px;
     font-weight: 600;
-    color: #1d1d1f;
+    color: #52681D;
     padding: 12px 16px 6px;
     margin-top: 0;
     text-transform: none;
@@ -136,14 +142,14 @@
   }
 
   .note-item.selected {
-    background-color: #E8E8ED;
+    background-color: #BAC67A;
     border-left: none;
   }
 
   .note-item-title {
     font-size: 14px;
     font-weight: 600;
-    color: #1d1d1f;
+    color: #52681D;
     margin-bottom: 0px;
     white-space: nowrap;
     overflow: hidden;
@@ -153,11 +159,17 @@
 
   .note-item-preview {
     font-size: 12px;
-    color: #86868b;
+    color: #BAC67A;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     line-height: 1.4;
     margin-top: 1px;
+    transition: color 0.1s;
+  }
+
+  .note-item:hover .note-item-preview,
+  .note-item.selected .note-item-preview {
+    color: #ffffff;
   }
 }
