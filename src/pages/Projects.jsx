@@ -29,23 +29,25 @@ function Projects() {
       </div>
       <div className="page-content">
         <h1 className="projects-title">projects</h1>
-        <p className="projects-description">EDIT_PROJECTS_DESCRIPTION_HERE</p>
+        <p className="projects-description">side projects and lessons learned:</p>
         <div className="projects-container">
           <div className="project-item">
             <h2 className="project-title">nfl playbook handtracker</h2>
+            <p className="project-description">heavily inspired by being an eagles fan and wanting to explore computer vision</p>
             <img className="project-image" src={handTrackerImg1} alt="Hand Tracker 1" />
             <ul className="project-list">
-              <li>– EDIT_BULLET_POINT_1_HERE</li>
-              <li>– EDIT_BULLET_POINT_2_HERE</li>
+              <li>– uses real-time hand tracking to control input and interactions</li>
+              <li>– renders an interactive 3D football field using Three.js</li>
             </ul>
             <img className="project-image" src={handTrackerImg2} alt="Hand Tracker 2" />
             <ul className="project-list">
-              <li>– EDIT_BULLET_POINT_1_HERE</li>
-              <li>– EDIT_BULLET_POINT_2_HERE</li>
+              <li>– draws and edits football routes through gesture-based input</li>
+              <li>– stores and replays custom play designs for later use</li>
             </ul>
           </div>
           <div className="project-item">
             <h2 className="project-title">uway</h2>
+            <p className="project-description">EDIT_PROJECT_DESCRIPTION_HERE</p>
             <img className="project-image" src={uwayImg1} alt="Uway 1" />
             <ul className="project-list">
               <li>– EDIT_BULLET_POINT_1_HERE</li>
@@ -59,6 +61,7 @@ function Projects() {
           </div>
           <div className="project-item">
             <h2 className="project-title">waypost</h2>
+            <p className="project-description">EDIT_PROJECT_DESCRIPTION_HERE</p>
             <img className="project-image" src={waypostImg1} alt="Waypost 1" />
             <ul className="project-list">
               <li>– EDIT_BULLET_POINT_1_HERE</li>
