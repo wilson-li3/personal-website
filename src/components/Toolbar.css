@@ -30,14 +30,12 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  border-radius: 6px;
   color: #52681D;
-  transition: color 0.1s, background-color 0.1s;
+  transition: color 0.1s;
   flex-shrink: 0;
 }
 
 .toolbar-icon:hover {
-  background-color: #F5F5F7;
   color: #BAC67A;
 }
 
@@ -85,7 +83,6 @@
   }
 
   .toolbar-icon:hover {
-    background-color: #F5F5F7;
     color: #BAC67A;
   }
 
