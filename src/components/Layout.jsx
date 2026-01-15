@@ -16,6 +16,10 @@ function Layout({ children }) {
     { id: 'about', path: '/about', title: 'About', preview: 'Learn more about me and my background', date: new Date(Date.now() - 86400000) },
     { id: 'projects', path: '/projects', title: 'Projects', preview: 'Check out my recent work and projects', date: new Date(Date.now() - 86400000) },
     { id: 'contact', path: '/contact', title: 'Contact', preview: 'Get in touch with me', date: new Date(Date.now() - 3 * 86400000) },
+    { id: 'quotes-himym', path: '/quotes-himym', title: 'Quotes from HIMYM', preview: 'Favorite quotes from How I Met Your Mother', date: new Date(Date.now() - 4 * 86400000) },
+    { id: 'photos', path: '/photos', title: 'Photos', preview: 'My photo collection', date: new Date(Date.now() - 5 * 86400000) },
+    { id: 'gym-routine', path: '/gym-routine', title: 'Gym Routine', preview: 'My workout routine', date: new Date(Date.now() - 6 * 86400000) },
+    { id: 'food', path: '/food', title: 'Food', preview: 'Food-related notes and recipes', date: new Date(Date.now() - 7 * 86400000) },
   ]
 
   useEffect(() => {
