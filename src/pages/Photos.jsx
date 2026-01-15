@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Toolbar from '../components/Toolbar'
 import './Page.css'
 import img0001 from '../images/IMG_0001.png'
@@ -38,6 +39,7 @@ import img9736 from '../images/IMG_9736.png'
 import img9771 from '../images/IMG_9771.png'
 
 function Photos() {
+  const [selectedPhoto, setSelectedPhoto] = useState(null)
   const noteDate = new Date(Date.now() - 5 * 86400000)
   const formattedDate = noteDate.toLocaleDateString('en-US', { 
     month: 'long', 
@@ -100,20 +102,35 @@ function Photos() {
         <h1 className="about-title">photos</h1>
         <div className="photos-gallery">
           {photos.map((photo, index) => (
-            <div key={index} className="photo-item">
+            <div 
+              key={index} 
+              className="photo-item"
+              onClick={() => setSelectedPhoto(photo)}
+            >
               <div className="photo-wrapper">
                 <img 
                   src={photo.src} 
                   alt={`Photo ${index + 1}`}
                   className="photo-image"
-                  loading="lazy"
-                  decoding="async"
                 />
                 <div className="photo-description">{photo.description}</div>
               </div>
             </div>
           ))}
         </div>
+        {selectedPhoto && (
+          <div className="photo-modal" onClick={() => setSelectedPhoto(null)}>
+            <div className="photo-modal-content" onClick={(e) => e.stopPropagation()}>
+              <button className="photo-modal-close" onClick={() => setSelectedPhoto(null)}>×</button>
+              <img 
+                src={selectedPhoto.src} 
+                alt="Enlarged photo"
+                className="photo-modal-image"
+              />
+              <div className="photo-modal-description">{selectedPhoto.description}</div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )
