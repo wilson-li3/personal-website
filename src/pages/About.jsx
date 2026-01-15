@@ -10,6 +10,7 @@ import gym from '../images/gym.png'
 import run from '../images/run.png'
 import music from '../images/music.png'
 import art from '../images/art.png'
+import poker from '../images/poker.png'
 
 function About() {
   const noteDate = new Date(Date.now() - 86400000)
@@ -52,6 +53,10 @@ function About() {
             – love watching sports, especially the nfl and nba
             <img className="inline-image" src={nflLogo} alt="NFL logo" />
             <img className="inline-image" src={nbaLogo} alt="NBA logo" />
+          </li>
+          <li>
+            – loves to play poker
+            <img className="inline-image" src={poker} alt="Poker" />
           </li>
           <li>
             – outside of school i stay active: soccer + gym
