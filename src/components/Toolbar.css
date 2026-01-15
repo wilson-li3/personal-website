@@ -33,6 +33,7 @@
   color: #52681D;
   transition: color 0.1s;
   flex-shrink: 0;
+  text-decoration: none;
 }
 
 .toolbar-icon:hover {
