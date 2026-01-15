@@ -49,6 +49,11 @@ function Home() {
         <div className="page-date">{formattedDate} at {formattedTime}</div>
       </div>
       <div className="page-content home-note">
+        <div className="home-navigation-hint">
+          <div className="nav-hint-arrow">←</div>
+          <div className="nav-hint-text">click on different notes in the sidebar to navigate to different pages</div>
+          <div className="nav-hint-arrow">←</div>
+        </div>
         <div className="home-note-header">
           <h1 className="home-note-title">wilson — personal notes</h1>
           <div className="home-note-subtitle">last edited just now</div>

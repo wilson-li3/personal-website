@@ -319,8 +319,50 @@
 
 /* Home note styles */
 .home-note {
-  padding: 24px 32px;
+  padding: 24px 32px 24px 80px;
   max-width: none;
+  position: relative;
+}
+
+.home-navigation-hint {
+  position: absolute;
+  left: 16px;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  color: #BAC67A;
+  font-size: 12px;
+  text-transform: lowercase;
+}
+
+.nav-hint-arrow {
+  font-size: 24px;
+  color: #BAC67A;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.nav-hint-text {
+  text-align: center;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  line-height: 1.8;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: translateX(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(-5px);
+  }
 }
 
 .home-note-header {
@@ -561,6 +603,10 @@
 
   .home-note {
     padding: 16px;
+  }
+
+  .home-navigation-hint {
+    display: none;
   }
 
   .home-note-title {
