@@ -69,7 +69,8 @@ function NoteList({ notes, selectedNote, onNoteClick }) {
           >
             <div className="note-item-title">{note.title}</div>
             <div className="note-item-preview">
-              {formatDate(note.date)} {note.preview}
+              <span className="note-item-date">{formatDate(note.date)}</span>
+              <span className="note-item-preview-text">{note.preview}</span>
             </div>
           </div>
         ))}
