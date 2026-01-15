@@ -30,6 +30,7 @@ function Projects() {
       <div className="page-content">
         <h1 className="projects-title">projects</h1>
         <p className="projects-description">side projects and lessons learned:</p>
+        <p className="projects-description">documentation of what i learned while building these projects</p>
         <div className="projects-container">
           <div className="project-item">
             <h2 className="project-title">nfl playbook handtracker</h2>
@@ -45,6 +46,14 @@ function Projects() {
               <li>– draws and edits football routes through gesture-based input</li>
               <li>– stores and replays custom play designs for later use</li>
             </ul>
+            <div className="project-lessons">
+              <h3 className="lessons-title">lessons i learned</h3>
+              <ul className="lessons-list">
+                <li>– Working on something I cared about made learning easier</li>
+                <li>– Hand tracking needs temporal smoothing and gesture state transitions</li>
+                <li>– 3D route rendering depends on consistent coordinate mapping</li>
+              </ul>
+            </div>
           </div>
           <div className="project-item">
             <h2 className="project-title">uway</h2>
@@ -60,6 +69,14 @@ function Projects() {
               <li>– serves schedule and location data through an API for routing logic</li>
               <li>– provides a web interface for users to visualize their schedules</li>
             </ul>
+            <div className="project-lessons">
+              <h3 className="lessons-title">lessons i learned</h3>
+              <ul className="lessons-list">
+                <li>– project ideas are hidden in plain sight</li>
+                <li>– finally understood version control with git</li>
+                <li>– learned the importance of user feedback in shaping features and agile development</li>
+              </ul>
+            </div>
           </div>
           <div className="project-item">
             <h2 className="project-title">waypost</h2>
@@ -76,6 +93,14 @@ function Projects() {
               <li>– Implemented point system for users to earn rewards</li>
               <li>– Stored point balances and transaction history in the backend for consistency</li>
             </ul>
+            <div className="project-lessons">
+              <h3 className="lessons-title">lessons i learned</h3>
+              <ul className="lessons-list">
+                <li>– no matter how hard things get, having friends to go through it with you makes it 10x easier</li>
+                <li>– learned i can sit and code for 24 hours</li>
+                <li>– mcdonalds tastes 1000x better at 2am</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>

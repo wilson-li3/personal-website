@@ -192,6 +192,38 @@
   line-height: 1.6;
 }
 
+.project-lessons {
+  border: 1px solid #E5E5E7;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 16px;
+  margin-left: 16px;
+  background-color: #F9F9F9;
+  max-width: 67%;
+}
+
+.lessons-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #52681D;
+  margin: 0 0 12px 0;
+  text-transform: lowercase;
+}
+
+.lessons-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.lessons-list li {
+  margin-bottom: 6px;
+  text-transform: lowercase;
+  color: #52681D;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
 /* Home note styles */
 .home-note {
   padding: 24px 32px;
