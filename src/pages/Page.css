@@ -96,6 +96,17 @@
   flex-shrink: 0;
 }
 
+.projects-page-content {
+  display: flex;
+  gap: 32px;
+  position: relative;
+}
+
+.projects-main {
+  flex: 1;
+  min-width: 0;
+}
+
 .projects-title {
   font-size: 28px;
   font-weight: 700;
@@ -103,6 +114,7 @@
   margin: 0 0 16px 0;
   padding-left: 16px;
   text-transform: lowercase;
+  scroll-margin-top: 20px;
 }
 
 .projects-description {
@@ -222,6 +234,49 @@
   color: #52681D;
   font-size: 14px;
   line-height: 1.5;
+}
+
+.projects-sidebar {
+  position: sticky;
+  top: 40%;
+  transform: translateY(-50%);
+  width: 200px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-self: flex-start;
+  padding-right: 16px;
+  height: fit-content;
+  max-height: calc(100vh - 100px);
+}
+
+.sidebar-item {
+  font-size: 13px;
+  color: #52681D;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 4px;
+  text-transform: lowercase;
+  transition: color 0.2s;
+  line-height: 1.4;
+}
+
+.sidebar-item:hover {
+  color: #BAC67A;
+}
+
+.sidebar-item.active {
+  color: #ffffff;
+  background-color: #BAC67A;
+}
+
+.project-item {
+  scroll-margin-top: 20px;
+}
+
+.project-lessons {
+  scroll-margin-top: 20px;
 }
 
 /* Home note styles */
