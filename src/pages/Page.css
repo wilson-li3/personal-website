@@ -684,3 +684,43 @@
     padding-left: 0;
   }
 }
+
+/* Contact Page Styles */
+.contact-list {
+  padding-left: 16px;
+}
+
+.contact-link {
+  color: #52681D;
+  text-decoration: underline;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.1s;
+}
+
+.contact-link:hover {
+  color: #BAC67A;
+}
+
+.contact-icon {
+  width: 1.5em;
+  height: 1.5em;
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.contact-link:hover .contact-icon path[fill="#52681D"] {
+  fill: #BAC67A;
+}
+
+.contact-link:hover .contact-icon path[fill="white"] {
+  fill: white;
+}
+
+@media (max-width: 768px) {
+  .contact-list {
+    padding-left: 0;
+  }
+}
