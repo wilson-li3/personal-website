@@ -87,6 +87,43 @@
   text-transform: lowercase;
 }
 
+.page-content .quotes-description {
+  font-size: 12px !important;
+  color: #BAC67A !important;
+  margin: 0 0 24px 0;
+  padding-left: 16px;
+  line-height: 1.6;
+  text-transform: lowercase;
+  max-width: 60%;
+}
+
+.quotes-image {
+  max-width: 60%;
+  height: auto;
+  margin: 24px 0 32px 16px;
+  display: block;
+}
+
+.quotes-container {
+  max-width: 60%;
+}
+
+.quotes-list li {
+  margin-bottom: 24px;
+}
+
+.quote-text {
+  margin-bottom: 4px;
+}
+
+.quote-thought {
+  font-size: 12px;
+  color: #BAC67A;
+  margin-top: 4px;
+  font-style: italic;
+  text-transform: lowercase;
+}
+
 .inline-image {
   display: inline-block;
   vertical-align: middle;
