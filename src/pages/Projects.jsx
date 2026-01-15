@@ -11,37 +11,67 @@ import waypostImg3 from '../images/waypost3.png'
 
 function Projects() {
   const [activeSection, setActiveSection] = useState('projects')
+  const [isScrollingTo, setIsScrollingTo] = useState(false)
 
   useEffect(() => {
+    let rafId = null
+    
     const handleScroll = () => {
-      const sections = [
-        'projects',
-        'handtracker',
-        'handtracker-lessons',
-        'uway',
-        'uway-lessons',
-        'waypost',
-        'waypost-lessons'
-      ]
-
-      const scrollOffset = 100
-      let currentSection = 'projects'
+      // Don't update if we're programmatically scrolling
+      if (isScrollingTo) return
       
-      // Find the section that's currently visible in the viewport
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = sections[i]
-        const element = document.getElementById(section)
-        if (element) {
-          const rect = element.getBoundingClientRect()
-          // Check if section is in the viewport (with some offset)
-          if (rect.top <= scrollOffset && rect.bottom >= 0) {
-            currentSection = section
-            break
-          }
-        }
+      // Cancel any pending updates
+      if (rafId) {
+        cancelAnimationFrame(rafId)
       }
       
-      setActiveSection(currentSection)
+      // Use requestAnimationFrame for smooth updates
+      rafId = requestAnimationFrame(() => {
+        const sections = [
+          'projects',
+          'handtracker',
+          'handtracker-lessons',
+          'uway',
+          'uway-lessons',
+          'waypost',
+          'waypost-lessons'
+        ]
+
+        const scrollOffset = 150
+        const scrollContainer = document.querySelector('.page-content')
+        const containerScrollTop = scrollContainer ? scrollContainer.scrollTop : window.scrollY
+        const containerHeight = scrollContainer ? scrollContainer.clientHeight : window.innerHeight
+        const isNearBottom = scrollContainer 
+          ? (scrollContainer.scrollHeight - containerScrollTop - containerHeight < 100)
+          : (document.documentElement.scrollHeight - window.scrollY - window.innerHeight < 100)
+        
+        let currentSection = 'projects'
+        
+        // If near bottom, always select the last section
+        if (isNearBottom) {
+          currentSection = 'waypost-lessons'
+        } else {
+          // Find the section that's currently visible in the viewport
+          for (let i = sections.length - 1; i >= 0; i--) {
+            const section = sections[i]
+            const element = document.getElementById(section)
+            if (element) {
+              const rect = element.getBoundingClientRect()
+              // Check if section is in the viewport (with some offset)
+              // Use a wider range to prevent flickering
+              if (rect.top <= scrollOffset + 50 && rect.bottom >= scrollOffset - 50) {
+                currentSection = section
+                break
+              }
+            }
+          }
+        }
+        
+        // Update immediately if section changed
+        if (currentSection !== activeSection) {
+          setActiveSection(currentSection)
+        }
+      })
     }
 
     // Listen to both window scroll and page-content scroll
@@ -62,13 +92,23 @@ function Projects() {
       if (scrollContainer) {
         scrollContainer.removeEventListener('scroll', onScroll)
       }
+      if (rafId) {
+        cancelAnimationFrame(rafId)
+      }
     }
-  }, [])
+  }, [isScrollingTo, activeSection])
 
   const scrollToSection = (id) => {
     const element = document.getElementById(id)
     if (element) {
+      setIsScrollingTo(true)
+      setActiveSection(id) // Immediately set active section
       element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      // Re-enable scroll detection after scroll completes
+      setTimeout(() => {
+        setIsScrollingTo(false)
+        setActiveSection(id)
+      }, 800)
     }
   }
   const noteDate = new Date(Date.now() - 2 * 86400000)
