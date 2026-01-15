@@ -33,6 +33,7 @@ function Projects() {
         <div className="projects-container">
           <div className="project-item">
             <h2 className="project-title">nfl playbook handtracker</h2>
+            <p className="project-tech">python, opencv, mediapipe, three.js, supabase</p>
             <p className="project-description">heavily inspired by being an eagles fan and wanting to explore computer vision</p>
             <img className="project-image" src={handTrackerImg1} alt="Hand Tracker 1" />
             <ul className="project-list">
@@ -47,35 +48,33 @@ function Projects() {
           </div>
           <div className="project-item">
             <h2 className="project-title">uway</h2>
-            <p className="project-description">EDIT_PROJECT_DESCRIPTION_HERE</p>
+            <p className="project-tech">react, javascript, fastapi, python, sql, rest apis, json</p>
+            <p className="project-description">built for se101 after we realized how brutally cold it is in waterloo</p>
             <img className="project-image" src={uwayImg1} alt="Uway 1" />
             <ul className="project-list">
-              <li>– EDIT_BULLET_POINT_1_HERE</li>
-              <li>– EDIT_BULLET_POINT_2_HERE</li>
+              <li>– parses pasted Quest schedules with Python and regex into clean structured data</li>
+              <li>– uses dijkstra’s algorithm to compute the shortest indoor paths between classes</li>
             </ul>
             <img className="project-image" src={uwayImg2} alt="Uway 2" />
             <ul className="project-list">
-              <li>– EDIT_BULLET_POINT_1_HERE</li>
-              <li>– EDIT_BULLET_POINT_2_HERE</li>
+              <li>– serves schedule and location data through an API for routing logic</li>
+              <li>– provides a web interface for users to visualize their schedules</li>
             </ul>
           </div>
           <div className="project-item">
             <h2 className="project-title">waypost</h2>
-            <p className="project-description">EDIT_PROJECT_DESCRIPTION_HERE</p>
+            <p className="project-tech">fastapi, react, tailwind css, firebase, cloudinary</p>
+            <p className="project-description">new hacks 2025 2nd place - circular tourist economy. built on energy drinks and midnight mcd's</p>
             <img className="project-image" src={waypostImg1} alt="Waypost 1" />
-            <ul className="project-list">
-              <li>– EDIT_BULLET_POINT_1_HERE</li>
-              <li>– EDIT_BULLET_POINT_2_HERE</li>
-            </ul>
             <img className="project-image" src={waypostImg2} alt="Waypost 2" />
             <ul className="project-list">
-              <li>– EDIT_BULLET_POINT_1_HERE</li>
-              <li>– EDIT_BULLET_POINT_2_HERE</li>
+              <li>– Built a circular-economy platform to reduce tourist waste</li>
+              <li>– Designed backend data models to represent items, availability windows, and locations</li>
             </ul>
             <img className="project-image" src={waypostImg3} alt="Waypost 3" />
             <ul className="project-list">
-              <li>– EDIT_BULLET_POINT_1_HERE</li>
-              <li>– EDIT_BULLET_POINT_2_HERE</li>
+              <li>– Implemented point system for users to earn rewards</li>
+              <li>– Stored point balances and transaction history in the backend for consistency</li>
             </ul>
           </div>
         </div>
