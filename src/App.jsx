@@ -8,7 +8,6 @@ import Contact from './pages/Contact'
 import QuotesHimym from './pages/QuotesHimym'
 import Photos from './pages/Photos'
 import GymRoutine from './pages/GymRoutine'
-import Food from './pages/Food'
 
 function App() {
   return (
@@ -19,10 +18,9 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/quotes-himym" element={<QuotesHimym />} />
-          <Route path="/photos" element={<Photos />} />
-          <Route path="/gym-routine" element={<GymRoutine />} />
-          <Route path="/food" element={<Food />} />
+              <Route path="/quotes-himym" element={<QuotesHimym />} />
+              <Route path="/photos" element={<Photos />} />
+              <Route path="/gym-routine" element={<GymRoutine />} />
         </Routes>
       </Layout>
     </BrowserRouter>
