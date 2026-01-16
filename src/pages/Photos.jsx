@@ -112,6 +112,8 @@ function Photos() {
                   src={photo.src} 
                   alt={`Photo ${index + 1}`}
                   className="photo-image"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <div className="photo-description">{photo.description}</div>
               </div>
