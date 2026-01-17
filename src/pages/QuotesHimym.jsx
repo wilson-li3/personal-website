@@ -1,6 +1,5 @@
 import Toolbar from '../components/Toolbar'
 import './Page.css'
-import himymImage from '../images/himym.png'
 
 function QuotesHimym() {
   const noteDate = new Date(Date.now() - 4 * 86400000)
@@ -24,7 +23,7 @@ function QuotesHimym() {
       <div className="page-content">
         <h1 className="about-title">quotes from himym</h1>
         <p className="quotes-description">how i met your mother is one of my favorite shows of all time along side ted lasso and suits. here are some of the quotes that resonated with me and what i think</p>
-        <img src={himymImage} alt="How I Met Your Mother" className="quotes-image" />
+        <img src="/images/himym.png" alt="How I Met Your Mother" className="quotes-image" />
         <div className="quotes-container">
           <ul className="about-list quotes-list">
             <li>

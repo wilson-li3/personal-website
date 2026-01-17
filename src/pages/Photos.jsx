@@ -1,43 +1,6 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useRef } from 'react'
 import Toolbar from '../components/Toolbar'
 import './Page.css'
-
-import img0001 from '../images/IMG_0001.png'
-import img0002 from '../images/IMG_0002.png'
-import img0003 from '../images/IMG_0003.png'
-import img0004 from '../images/IMG_0004.png'
-import img0032 from '../images/IMG_0032.png'
-import img0569 from '../images/IMG_0569.png'
-import img0579 from '../images/IMG_0579.png'
-import img0587 from '../images/IMG_0587.png'
-import img0622 from '../images/IMG_0622.png'
-import img0960 from '../images/IMG_0960.png'
-import img1003 from '../images/IMG_1003.png'
-import img1036 from '../images/IMG_1036.png'
-import img1049 from '../images/IMG_1049.png'
-import img1278 from '../images/IMG_1278.png'
-import img1706 from '../images/IMG_1706.png'
-import img2367 from '../images/IMG_2367.png'
-import img3074 from '../images/IMG_3074.png'
-import img3129 from '../images/IMG_3129.png'
-import img3131 from '../images/IMG_3131.png'
-import img4926 from '../images/IMG_4926.png'
-import img4933 from '../images/IMG_4933.png'
-import img5444 from '../images/IMG_5444_jpg.png'
-import img5855 from '../images/IMG_5855.png'
-import img5942 from '../images/IMG_5942.png'
-import img6093 from '../images/IMG_6093.png'
-import img6105 from '../images/IMG_6105.png'
-import img6209 from '../images/IMG_6209.png'
-import img6735 from '../images/IMG_6735.png'
-import img6738 from '../images/IMG_6738.png'
-import img7025 from '../images/IMG_7025.png'
-import img9482 from '../images/IMG_9482.png'
-import img9590 from '../images/IMG_9590.png'
-import img9709 from '../images/IMG_9709.png'
-import img9723 from '../images/IMG_9723.png'
-import img9736 from '../images/IMG_9736.png'
-import img9771 from '../images/IMG_9771.png'
 
 function Photos() {
   const [selectedPhoto, setSelectedPhoto] = useState(null)
@@ -57,51 +20,106 @@ function Photos() {
   // Keep photo list stable across renders
   const photos = useMemo(
     () => [
-      { src: img0001, description: "se30 except eugene was sick and kevin's batman" },
-      { src: img0002, description: 'antelope canyon, arizona' },
-      { src: img0003, description: 'senior prom' },
-      { src: img0004, description: 'yantai, shandong' },
-      { src: img0032, description: 'beach' },
-      { src: img0569, description: 'first time in toronto' },
-      { src: img0579, description: 'eaton centre' },
-      { src: img0587, description: 'downtown toronto' },
-      { src: img0622, description: 'philadelphia' },
-      { src: img0960, description: 'waterloo in a nutshell' },
-      { src: img1003, description: 'first snowfall ive seen in waterloo' },
-      { src: img1036, description: 'view from black friday air bnb' },
-      { src: img1049, description: 'turns out cactus club does not serve cactus' },
-      { src: img1278, description: 'new york window display' },
-      { src: img1706, description: 'horseshoe bend, arizona' },
-      { src: img2367, description: 'vegas - my favorite city of all time' },
-      { src: img3074, description: 'cool canyon but i forgot where' },
-      { src: img3129, description: 'yellowstone national park' },
-      { src: img3131, description: 'yellowstone sunset' },
-      { src: img4926, description: 'high school graduation, class of 2025' },
-      { src: img4933, description: 'maine' },
-      { src: img5444, description: 'japan' },
-      { src: img5855, description: 'times square' },
-      { src: img5942, description: 'rockefeller center' },
-      { src: img6093, description: 'cool japanese garden' },
-      { src: img6105, description: 'texas' },
-      { src: img6209, description: 'friends in my dorm' },
-      { src: img6735, description: 'home sweet home' },
-      { src: img6738, description: 'cool sunset in my neighborhood' },
-      { src: img7025, description: 'RV trip!' },
-      { src: img9482, description: 'japan' },
-      { src: img9590, description: 'yantai, shandong' },
-      { src: img9709, description: 'plane view' },
-      { src: img9723, description: 'cool japan photo' },
-      { src: img9736, description: 'another cool japan photo' },
-      { src: img9771, description: 'gyubeeeee' },
+      { src: '/images/IMG_0001.png', description: "se30 except eugene was sick and kevin's batman" },
+      { src: '/images/IMG_0002.png', description: 'antelope canyon, arizona' },
+      { src: '/images/IMG_0003.png', description: 'senior prom' },
+      { src: '/images/IMG_0004.png', description: 'yantai, shandong' },
+      { src: '/images/IMG_0032.png', description: 'beach' },
+      { src: '/images/IMG_0569.png', description: 'first time in toronto' },
+      { src: '/images/IMG_0579.png', description: 'eaton centre' },
+      { src: '/images/IMG_0587.png', description: 'downtown toronto' },
+      { src: '/images/IMG_0622.png', description: 'philadelphia' },
+      { src: '/images/IMG_0960.png', description: 'waterloo in a nutshell' },
+      { src: '/images/IMG_1003.png', description: 'first snowfall ive seen in waterloo' },
+      { src: '/images/IMG_1036.png', description: 'view from black friday air bnb' },
+      { src: '/images/IMG_1049.png', description: 'turns out cactus club does not serve cactus' },
+      { src: '/images/IMG_1278.png', description: 'new york window display' },
+      { src: '/images/IMG_1706.png', description: 'horseshoe bend, arizona' },
+      { src: '/images/IMG_2367.png', description: 'vegas - my favorite city of all time' },
+      { src: '/images/IMG_3074.png', description: 'cool canyon but i forgot where' },
+      { src: '/images/IMG_3129.png', description: 'yellowstone national park' },
+      { src: '/images/IMG_3131.png', description: 'yellowstone sunset' },
+      { src: '/images/IMG_4926.png', description: 'high school graduation, class of 2025' },
+      { src: '/images/IMG_4933.png', description: 'maine' },
+      { src: '/images/IMG_5444_jpg.png', description: 'japan' },
+      { src: '/images/IMG_5855.png', description: 'times square' },
+      { src: '/images/IMG_5942.png', description: 'rockefeller center' },
+      { src: '/images/IMG_6093.png', description: 'cool japanese garden' },
+      { src: '/images/IMG_6105.png', description: 'texas' },
+      { src: '/images/IMG_6209.png', description: 'friends in my dorm' },
+      { src: '/images/IMG_6735.png', description: 'home sweet home' },
+      { src: '/images/IMG_6738.png', description: 'cool sunset in my neighborhood' },
+      { src: '/images/IMG_7025.png', description: 'RV trip!' },
+      { src: '/images/IMG_9482.png', description: 'japan' },
+      { src: '/images/IMG_9590.png', description: 'yantai, shandong' },
+      { src: '/images/IMG_9709.png', description: 'plane view' },
+      { src: '/images/IMG_9723.png', description: 'cool japan photo' },
+      { src: '/images/IMG_9736.png', description: 'another cool japan photo' },
+      { src: '/images/IMG_9771.png', description: 'gyubeeeee' },
     ],
     []
   )
 
-  // Preload only the first hero image
+  // Persist preloaded Image objects to prevent garbage collection
+  const preloadedImagesRef = useRef([])
+
+  // Preload remaining images in batches using requestIdleCallback
   useEffect(() => {
-    const heroImg = new Image()
-    heroImg.src = photos[0].src
-    heroImg.loading = 'eager'
+    // Skip first 6 images as they're eager-loaded
+    const imagesToPreload = photos.slice(6)
+    if (imagesToPreload.length === 0) return
+
+    let cancelled = false
+    const preloadedImages = []
+
+    const schedulePreload = (callback) => {
+      if (typeof window !== 'undefined' && window.requestIdleCallback) {
+        return window.requestIdleCallback(callback, { timeout: 2000 })
+      }
+      return setTimeout(callback, 100)
+    }
+
+    const cancelSchedule = (id) => {
+      if (typeof window !== 'undefined' && window.cancelIdleCallback) {
+        window.cancelIdleCallback(id)
+      } else if (id) {
+        clearTimeout(id)
+      }
+    }
+
+    const preloadBatch = (startIndex, batchSize = 4) => {
+      if (cancelled) return
+
+      const batch = imagesToPreload.slice(startIndex, startIndex + batchSize)
+      if (batch.length === 0) return
+
+      batch.forEach((photo) => {
+        const img = new Image()
+        img.src = photo.src
+        img.decoding = 'async'
+        preloadedImages.push(img)
+      })
+
+      preloadedImagesRef.current = preloadedImages
+
+      if (startIndex + batchSize < imagesToPreload.length) {
+        const id = schedulePreload(() => {
+          preloadBatch(startIndex + batchSize, batchSize)
+        })
+        if (cancelled) {
+          cancelSchedule(id)
+        }
+      }
+    }
+
+    const id = schedulePreload(() => {
+      preloadBatch(0)
+    })
+
+    return () => {
+      cancelled = true
+      cancelSchedule(id)
+    }
   }, [photos])
 
   return (
@@ -129,9 +147,18 @@ function Photos() {
                     src={photo.src}
                     alt={`Photo ${index + 1}`}
                     className="photo-image"
-                    loading={index === 0 ? 'eager' : 'lazy'}
+                    loading={index < 6 ? 'eager' : 'lazy'}
                     decoding="async"
-                    fetchPriority={index === 0 ? 'high' : 'auto'}
+                    fetchpriority={index === 0 ? 'high' : 'auto'}
+                    onError={(e) => {
+                      const target = e.currentTarget
+                      console.error(`Failed to load image:`, {
+                        photoSrc: photo.src,
+                        currentSrc: target.currentSrc,
+                        imgSrc: target.src,
+                        error: e
+                      })
+                    }}
                   />
                 </div>
                 <div className="photo-description">{photo.description}</div>
@@ -157,6 +184,15 @@ function Photos() {
                 alt="Enlarged photo"
                 className="photo-modal-image"
                 decoding="async"
+                onError={(e) => {
+                  const target = e.currentTarget
+                  console.error(`Failed to load modal image:`, {
+                    photoSrc: selectedPhoto.src,
+                    currentSrc: target.currentSrc,
+                    imgSrc: target.src,
+                    error: e
+                  })
+                }}
               />
               <div className="photo-modal-description">
                 {selectedPhoto.description}

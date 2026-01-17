@@ -2,7 +2,6 @@ import { useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Toolbar from '../components/Toolbar'
 import './Page.css'
-import videoSrc from '../images/waterloocrestsmiski.mp4'
 
 function Home() {
   const videoRef = useRef(null)
@@ -88,7 +87,7 @@ function Home() {
             <div className="home-video-wrapper">
               <video
                 ref={videoRef}
-                src={videoSrc}
+                src="/images/waterloocrestsmiski.mp4"
                 className="home-video-inline"
                 autoPlay
                 muted

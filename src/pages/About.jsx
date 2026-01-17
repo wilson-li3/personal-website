@@ -1,16 +1,5 @@
 import Toolbar from '../components/Toolbar'
 import './Page.css'
-import waterlooCrest from '../images/waterloocrest.png'
-import libertyBell from '../images/libertybell.png'
-import eaglesLogo from '../images/eagles.png'
-import nflLogo from '../images/nfl.png'
-import nbaLogo from '../images/nba.png'
-import soccer from '../images/soccer.png'
-import gym from '../images/gym.png'
-import run from '../images/run.png'
-import music from '../images/music.png'
-import art from '../images/art.png'
-import poker from '../images/poker.png'
 
 function About() {
   const noteDate = new Date(Date.now() - 86400000)
@@ -36,41 +25,41 @@ function About() {
         <ul className="about-list">
           <li>
             – software engineering student at the university of waterloo
-            <img className="inline-image" src={waterlooCrest} alt="Waterloo crest" />
+            <img className="inline-image" src="/images/waterloocrest.png" alt="Waterloo crest" />
           </li>
           <li>– i like building personal projects and learning by doing</li>
           <li>– this site is my notebook for ideas, projects, and things in progress</li>
           <li>– grew up just outside of philadelphia</li>
           <li>
             – big philly pride
-            <img className="inline-image" src={libertyBell} alt="Liberty bell" />
+            <img className="inline-image" src="/images/libertybell.png" alt="Liberty bell" />
           </li>
           <li>
             – huge eagles fan: go birds dh
-            <img className="inline-image" src={eaglesLogo} alt="Eagles logo" />
+            <img className="inline-image" src="/images/eagles.png" alt="Eagles logo" />
           </li>
           <li>
             – love watching sports, especially the nfl and nba
-            <img className="inline-image" src={nflLogo} alt="NFL logo" />
-            <img className="inline-image" src={nbaLogo} alt="NBA logo" />
+            <img className="inline-image" src="/images/nfl.png" alt="NFL logo" />
+            <img className="inline-image" src="/images/nba.png" alt="NBA logo" />
           </li>
           <li>
             – loves to play poker
-            <img className="inline-image" src={poker} alt="Poker" />
+            <img className="inline-image" src="/images/poker.png" alt="Poker" />
           </li>
           <li>
             – outside of school i stay active: soccer + gym
-            <img className="inline-image" src={soccer} alt="Soccer" />
-            <img className="inline-image" src={gym} alt="Gym" />
+            <img className="inline-image" src="/images/soccer.png" alt="Soccer" />
+            <img className="inline-image" src="/images/gym.png" alt="Gym" />
           </li>
           <li>
             – training for my first half marathon this fall
-            <img className="inline-image" src={run} alt="Running" />
+            <img className="inline-image" src="/images/run.png" alt="Running" />
           </li>
           <li>
             – also into music and art
-            <img className="inline-image" src={music} alt="Music" />
-            <img className="inline-image" src={art} alt="Art" />
+            <img className="inline-image" src="/images/music.png" alt="Music" />
+            <img className="inline-image" src="/images/art.png" alt="Art" />
           </li>
         </ul>
       </div>
