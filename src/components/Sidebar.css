@@ -32,6 +32,11 @@
   background-color: var(--sidebar-hover-color);
 }
 
+.sidebar-item.no-hover:hover {
+  background-color: transparent;
+  cursor: default;
+}
+
 .sidebar-item.active {
   background-color: #A8C09A;
 }

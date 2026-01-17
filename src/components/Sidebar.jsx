@@ -4,7 +4,7 @@ function Sidebar() {
   return (
     <div className="sidebar">
       <div className="sidebar-content">
-        <div className="sidebar-item">
+        <div className="sidebar-item no-hover">
           <div className="sidebar-item-icon matcha-square">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
               <rect width="12" height="12" rx="2" fill="#A8C09A"/>
@@ -13,7 +13,7 @@ function Sidebar() {
           <span className="sidebar-item-text">Quick Notes</span>
           <span className="sidebar-item-count">1</span>
         </div>
-        <div className="sidebar-item">
+        <div className="sidebar-item no-hover">
           <div className="sidebar-item-icon matcha-square-root">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
               <rect width="12" height="12" rx="2" fill="#A8C09A"/>
@@ -24,7 +24,7 @@ function Sidebar() {
           <span className="sidebar-item-text">Math Notes</span>
           <span className="sidebar-item-count">1</span>
         </div>
-        <div className="sidebar-item">
+        <div className="sidebar-item no-hover">
           <div className="sidebar-item-icon coral-circles">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
               <circle cx="4" cy="4" r="2.5" fill="#FF8A80"/>

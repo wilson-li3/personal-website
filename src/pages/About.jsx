@@ -44,7 +44,7 @@ function About() {
             <img className="inline-image" src="/images/nba.png" alt="NBA logo" />
           </li>
           <li>
-            – loves to play poker
+            – love to play poker
             <img className="inline-image" src="/images/poker.png" alt="Poker" />
           </li>
           <li>
