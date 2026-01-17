@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Toolbar from '../components/Toolbar'
 import './Page.css'
 import img0001 from '../images/IMG_0001.png'
@@ -92,6 +92,39 @@ function Photos() {
     { src: img9771, description: 'gyubeeeee' },
   ]
 
+  useEffect(() => {
+    // Preload all images with staggered loading for better Chrome compatibility
+    // Chrome has limits on concurrent connections, so we'll load in batches
+    const imageCache = []
+    const batchSize = 6 // Load 6 at a time for Chrome compatibility
+    
+    const loadBatch = (startIndex) => {
+      const endIndex = Math.min(startIndex + batchSize, photos.length)
+      
+      for (let i = startIndex; i < endIndex; i++) {
+        const photo = photos[i]
+        const img = new Image()
+        img.loading = 'eager'
+        img.onload = () => {
+          imageCache[i] = img
+        }
+        img.src = photo.src
+      }
+      
+      // Load next batch after a short delay
+      if (endIndex < photos.length) {
+        setTimeout(() => loadBatch(endIndex), 50)
+      }
+    }
+    
+    // Start loading immediately
+    loadBatch(0)
+    
+    return () => {
+      // Keep images in cache
+    }
+  }, [])
+
   return (
     <div className="page">
       <div className="page-header">
@@ -109,11 +142,12 @@ function Photos() {
             >
               <div className="photo-wrapper">
                 <img 
-                  src={photo.src} 
+                  src={photo.src}
                   alt={`Photo ${index + 1}`}
                   className="photo-image"
-                  loading="lazy"
-                  decoding="async"
+                  loading="eager"
+                  decoding="sync"
+                  fetchPriority={index < 3 ? "high" : "auto"}
                 />
                 <div className="photo-description">{photo.description}</div>
               </div>
