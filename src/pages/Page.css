@@ -98,6 +98,16 @@
   max-width: 60%;
 }
 
+.photos-description {
+  font-size: 12px !important;
+  color: #BAC67A !important;
+  margin: 0 0 24px 0;
+  padding-left: 16px;
+  line-height: 1.6;
+  text-transform: lowercase;
+  max-width: 60%;
+}
+
 .quotes-image {
   max-width: 60%;
   height: auto;

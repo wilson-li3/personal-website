@@ -60,6 +60,8 @@ function Home() {
         <div className="home-note-body">
           <p>notes has become a go to app for me. whether that is scribbling down tim horton's orders for my friends, writing down my thoughts, or reminders of what my friends love, what ive realized is that my notes have become a memorabilia of who I am today.</p>
           <br />
+          <p>check out my <Link to="/about" className="home-note-link">about me</Link> and click around on the different notes to pick my brain</p>
+          <br />
           <p>here's a glimpse into my life.</p>
           <p>not everything about me, but enough to take note</p>
           <br />
@@ -78,10 +80,10 @@ function Home() {
                 </ul>
               </li>
               <li>
-                <Link to="/about" className="home-note-link">- about me</Link>
+                - building a sports betting line aggregator
               </li>
               <li>
-                <Link to="/projects" className="home-note-link">- projects</Link>
+                - part of watonomous (uw's autonomous vehicle team)
               </li>
             </ul>
             <div className="home-video-wrapper">

@@ -133,6 +133,7 @@ function Photos() {
 
       <div className="page-content photos-content">
         <h1 className="about-title">photos</h1>
+        <p className="photos-description">a collection of some of my favorite memories. click on any of them to enlarge</p>
 
         <div className="photos-gallery">
           {photos.map((photo, index) => (
