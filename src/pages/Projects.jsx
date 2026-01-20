@@ -26,6 +26,8 @@ function Projects() {
           'handtracker-lessons',
           'uway',
           'uway-lessons',
+          'nbaengine',
+          'nbaengine-lessons',
           'waypost',
           'waypost-lessons'
         ]
@@ -174,6 +176,29 @@ function Projects() {
               </ul>
             </div>
           </div>
+          <div className="project-item" id="nbaengine">
+            <h2 className="project-title">Probabilistic NBA Analytics Engine</h2>
+            <p className="project-tech">python, pandas, numpy, scikit-learn, matplotlib, mongodb, fastapi</p>
+            <p className="project-description">A probabilistic NBA analytics system that models team total outcomes using leakage-safe machine learning, uncertainty-aware statistics, and interactive analysis.</p>
+            <img className="project-image" src="/images/nbaengine1.png" alt="NBA Engine 1" />
+            <ul className="project-list">
+              <li>– Built a leakage-safe ML pipeline using past-only data and walk-forward backtesting</li>
+              <li>– Modeled outcomes as calibrated probabilities instead of binary predictions.</li>
+            </ul>
+            <img className="project-image" src="/images/nbaengine2.png" alt="NBA Engine 2" />
+            <ul className="project-list">
+              <li>– Quantified event relationships and uncertainty with Bayesian smoothing and bootstrap methods.</li>
+              <li>– Incorporated player tracking data for more accurate event modeling.</li>
+            </ul>
+            <div className="project-lessons" id="nbaengine-lessons">
+              <h3 className="lessons-title">lessons i learned</h3>
+              <ul className="lessons-list">
+                <li>– handling lots of data is hard</li>
+                <li>– learned the importance of feature engineering</li>
+                <li>– gained experience with model evaluation and backtesting techniques</li>
+              </ul>
+            </div>
+          </div>
           <div className="project-item" id="waypost">
             <h2 className="project-title">waypost</h2>
             <p className="project-tech">fastapi, react, tailwind css, firebase, cloudinary</p>
@@ -230,6 +255,18 @@ function Projects() {
             onClick={() => scrollToSection('uway-lessons')}
           >
             lessons learned from uway
+          </div>
+          <div 
+            className={`sidebar-item ${activeSection === 'nbaengine' ? 'active' : ''}`}
+            onClick={() => scrollToSection('nbaengine')}
+          >
+            Probabilistic NBA Analytics Engine
+          </div>
+          <div 
+            className={`sidebar-item ${activeSection === 'nbaengine-lessons' ? 'active' : ''}`}
+            onClick={() => scrollToSection('nbaengine-lessons')}
+          >
+            lessons learned from Probabilistic NBA Analytics Engine
           </div>
           <div 
             className={`sidebar-item ${activeSection === 'waypost' ? 'active' : ''}`}
