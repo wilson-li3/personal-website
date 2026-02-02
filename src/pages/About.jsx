@@ -20,7 +20,7 @@ function About() {
         <Toolbar />
         <div className="page-date">{formattedDate} at {formattedTime}</div>
       </div>
-      <div className="page-content">
+      <div className="page-content about-page-content">
         <h1 className="about-title">hi, i'm wilson li</h1>
         <ul className="about-list">
           <li>
@@ -62,6 +62,7 @@ function About() {
             <img className="inline-image" src="/images/art.png" alt="Art" />
           </li>
         </ul>
+        <img className="about-photo" src="/images/wilson-about.png" alt="Wilson Li" />
       </div>
     </div>
   )

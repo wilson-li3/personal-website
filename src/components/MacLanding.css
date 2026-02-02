@@ -10,7 +10,7 @@
 .mac-desktop {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, #eef1ea 0%, #e8ebe4 50%, #e4e8e0 100%);
+  background: url('/images/avocado-wallpaper.png') center / cover no-repeat;
   z-index: 0;
 }
 
@@ -150,9 +150,9 @@
 
 .mac-dock-label {
   font-size: 11px;
-  color: #86868b;
+  color: #ffffff;
   margin: 0;
-  font-weight: 400;
+  font-weight: 700;
 }
 
 .mac-dock {

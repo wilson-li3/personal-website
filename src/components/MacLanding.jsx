@@ -44,7 +44,7 @@ function MacLanding({ onEnter }) {
 
       {/* macOS-style dock at bottom - custom icon images */}
       <div className="mac-dock-wrapper">
-        <p className="mac-dock-label">for deccoration purposes only, more to come in the future</p>
+        <p className="mac-dock-label">for decoration purposes only, more to come in the future</p>
         <div className="mac-dock" aria-hidden>
           <div className="mac-dock-icon" title="Messages">
             <img src="/images/dock/messages.png" alt="Messages" />

@@ -88,6 +88,20 @@
   text-transform: lowercase;
 }
 
+.about-page-content {
+  position: relative;
+}
+
+.about-photo {
+  position: absolute;
+  bottom: 24px;
+  left: 38%;
+  max-width: 400px;
+  width: 58%;
+  height: auto;
+  display: block;
+}
+
 .page-content .quotes-description {
   font-size: 12px !important;
   color: #BAC67A !important;
