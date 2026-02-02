@@ -14,67 +14,9 @@
   z-index: 0;
 }
 
-/* Top menu bar - visual only, macOS style */
-.mac-menu-bar {
+.mac-landing .mac-menu-bar {
   position: relative;
   z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 24px;
-  padding: 0 12px;
-  background: rgba(232, 235, 228, 0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-  flex-shrink: 0;
-}
-
-.mac-menu-left {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.mac-apple-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 18px;
-  height: 18px;
-  color: #1d1d1f;
-}
-
-.mac-menu-item {
-  font-size: 13px;
-  color: #1d1d1f;
-  padding: 0 8px;
-  font-weight: 500;
-}
-
-.mac-menu-app {
-  font-weight: 600;
-}
-
-.mac-menu-right {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.mac-status-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 16px;
-  height: 16px;
-  color: #1d1d1f;
-}
-
-.mac-menu-time {
-  font-size: 12px;
-  color: #1d1d1f;
-  font-weight: 400;
 }
 
 /* Floating Notes window */

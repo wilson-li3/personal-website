@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import Sidebar from './Sidebar'
 import NoteList from './NoteList'
+import MacMenuBar from './MacMenuBar'
 import './Layout.css'
 
 function Layout({ children }) {
@@ -12,7 +13,7 @@ function Layout({ children }) {
   const [showDetail, setShowDetail] = useState(false)
 
   const notes = [
-    { id: 'home', path: '/', title: 'Home', preview: 'Welcome to my personal website', date: new Date() },
+    { id: 'home', path: '/', title: 'Notes', preview: 'Welcome to my personal website', date: new Date() },
     { id: 'about', path: '/about', title: 'About', preview: 'Learn more about me and my background', date: new Date(Date.now() - 86400000) },
     { id: 'projects', path: '/projects', title: 'Projects', preview: 'Check out my recent work and projects', date: new Date(Date.now() - 86400000) },
     { id: 'contact', path: '/contact', title: 'Contact', preview: 'Get in touch with me', date: new Date(Date.now() - 3 * 86400000) },
@@ -21,6 +22,9 @@ function Layout({ children }) {
         { id: 'gym-routine', path: '/gym-routine', title: 'Gym Routine', preview: 'My workout routine', date: new Date(Date.now() - 6 * 86400000) },
     { id: 'doodle', path: '/doodle', title: 'Doodle', preview: 'Scribble on a note', date: new Date(Date.now() - 7 * 86400000) },
   ]
+
+  const currentNote = notes.find((n) => n.path === location.pathname)
+  const menuBarTitle = currentNote ? currentNote.title : 'Notes'
 
   useEffect(() => {
     const handleResize = () => {
@@ -60,8 +64,10 @@ function Layout({ children }) {
 
   return (
     <div className="layout">
-      {!isMobile && <Sidebar />}
-      <div className={`mobile-header ${isMobile && !showDetail ? 'visible' : ''}`}>
+      <MacMenuBar title={menuBarTitle} />
+      <div className="layout-body">
+        {!isMobile && <Sidebar />}
+        <div className={`mobile-header ${isMobile && !showDetail ? 'visible' : ''}`}>
         <div className="mobile-header-content">
           <div className="mobile-back-button" onClick={handleBack}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -90,6 +96,7 @@ function Layout({ children }) {
           </div>
         )}
         {children}
+      </div>
       </div>
     </div>
   )
