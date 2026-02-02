@@ -13,6 +13,8 @@ function MacLanding({ onEnter }) {
       {/* macOS desktop background */}
       <div className="mac-desktop" aria-hidden />
 
+      <img className="mac-landing-photo" src="/images/wilson-about.png" alt="Wilson Li" aria-hidden />
+
       <MacMenuBar title="Notes" />
 
       {/* Floating Notes window */}
