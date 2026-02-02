@@ -1,11 +1,63 @@
+import { useState, useEffect, useRef } from 'react'
+import Lottie from 'lottie-react'
 import MacMenuBar from './MacMenuBar'
 import './MacLanding.css'
 
+const FACEID_SWITCH_DELAY_MS = 1600
+
 function MacLanding({ onEnter }) {
-  const handleEnter = (e) => {
+  const [showFaceId, setShowFaceId] = useState(false)
+  const [faceIdData, setFaceIdData] = useState(null)
+  const hasSwitchedRef = useRef(false)
+
+  // Preload animation when landing mounts so it's ready when user clicks
+  useEffect(() => {
+    let cancelled = false
+    fetch('/animations/face-id.json')
+      .then((res) => res.json())
+      .then((data) => {
+        if (!cancelled) setFaceIdData(data)
+      })
+      .catch(() => {})
+    return () => { cancelled = true }
+  }, [])
+
+  // Fallback: if user clicks before prefetch finished, fetch when overlay opens
+  useEffect(() => {
+    if (!showFaceId || faceIdData) return
+    let cancelled = false
+    fetch('/animations/face-id.json')
+      .then((res) => res.json())
+      .then((data) => {
+        if (!cancelled) setFaceIdData(data)
+      })
+      .catch(() => {})
+    return () => { cancelled = true }
+  }, [showFaceId, faceIdData])
+
+  const doSwitch = () => {
+    if (hasSwitchedRef.current) return
+    hasSwitchedRef.current = true
+    setShowFaceId(false)
+    onEnter?.()
+  }
+
+  const handleFaceIdComplete = () => {
+    doSwitch()
+  }
+
+  // Start page switch a bit before animation ends so there's no stall
+  useEffect(() => {
+    if (!showFaceId || !faceIdData) return
+    hasSwitchedRef.current = false
+    const t = setTimeout(doSwitch, FACEID_SWITCH_DELAY_MS)
+    return () => clearTimeout(t)
+  }, [showFaceId, faceIdData])
+
+  const handleBrowseClick = (e) => {
     e.preventDefault()
     e.stopPropagation()
-    onEnter?.()
+    setShowFaceId(true)
   }
 
   return (
@@ -16,6 +68,22 @@ function MacLanding({ onEnter }) {
       <img className="mac-landing-photo" src="/images/wilson-about.png" alt="Wilson Li" aria-hidden />
 
       <MacMenuBar title="Notes" />
+
+      {showFaceId && (
+        <div className="mac-faceid-overlay" aria-live="polite">
+          <div className="mac-faceid-container">
+            {faceIdData && (
+              <Lottie
+                animationData={faceIdData}
+                loop={false}
+                onComplete={handleFaceIdComplete}
+                className="mac-faceid-lottie"
+                aria-label="Face ID authentication"
+              />
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Floating Notes window */}
       <div className="mac-notes-window">
@@ -37,7 +105,7 @@ function MacLanding({ onEnter }) {
                 Browse around, open a few notes, and get a glimpse into how my mind works.
               </p>
             </div>
-            <button type="button" className="mac-browse-button" onClick={handleEnter}>
+            <button type="button" className="mac-browse-button" onClick={handleBrowseClick}>
               ← browse all notes
             </button>
           </div>

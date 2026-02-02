@@ -32,6 +32,32 @@
   z-index: 2;
 }
 
+/* Face ID - small, centered under menu bar */
+.mac-faceid-overlay {
+  position: fixed;
+  top: 30px;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  padding-top: 16px;
+  pointer-events: none;
+}
+
+.mac-faceid-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  height: 120px;
+}
+
+.mac-faceid-lottie {
+  width: 100% !important;
+  height: 100% !important;
+}
+
 /* Floating Notes window */
 .mac-notes-window {
   position: relative;
