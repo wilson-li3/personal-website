@@ -5,6 +5,7 @@ function CustomCursor() {
   const [position, setPosition] = useState({ x: -100, y: -100 })
   const [isPointer, setIsPointer] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
+  const [isOverSidebar, setIsOverSidebar] = useState(false)
   const posRef = useRef(position)
 
   useEffect(() => {
@@ -28,7 +29,9 @@ function CustomCursor() {
       const target = document.elementFromPoint(x, y)
       if (!target) return
       const pointer = target.closest('a, button, [role="button"], .note-item, input, select, textarea, [data-cursor-pointer]')
+      const overSidebar = target.closest('.sidebar, .note-list-container, .note-list, .mac-landing')
       setIsPointer(!!pointer)
+      setIsOverSidebar(!!overSidebar)
     }
 
     window.addEventListener('mousemove', handleMove)
@@ -55,7 +58,7 @@ function CustomCursor() {
 
   return (
     <div
-      className={`custom-cursor ${isVisible ? 'visible' : ''} ${isPointer ? 'pointer' : ''}`}
+      className={`custom-cursor ${isVisible ? 'visible' : ''} ${isPointer ? 'pointer' : ''} ${isOverSidebar ? 'light-bg' : ''}`}
       style={{ left: position.x, top: position.y }}
       aria-hidden="true"
     >

@@ -28,6 +28,16 @@
   transform: translate(-50%, -50%) scale(1.05);
 }
 
+/* Cursor over sidebar / note list: white so it doesn’t disappear on light green */
+.custom-cursor.light-bg .cursor-pencil {
+  color: #ffffff;
+  filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.4)) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+}
+
+.custom-cursor.light-bg.pointer .cursor-pencil {
+  color: #ffffff;
+}
+
 @media (max-width: 768px), (hover: none) {
   .custom-cursor {
     display: none !important;
