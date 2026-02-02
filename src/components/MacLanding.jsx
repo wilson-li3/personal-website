@@ -70,6 +70,34 @@ function MacLanding({ onEnter }) {
           </div>
         </div>
       </div>
+
+      {/* macOS-style dock at bottom - custom icon images */}
+      <div className="mac-dock-wrapper">
+        <p className="mac-dock-label">for deccoration purposes only, more to come in the future</p>
+        <div className="mac-dock" aria-hidden>
+          <div className="mac-dock-icon" title="Messages">
+            <img src="/images/dock/messages.png" alt="Messages" />
+          </div>
+          <div className="mac-dock-icon" title="VS Code">
+            <img src="/images/dock/vscode.png" alt="VS Code" />
+          </div>
+          <div className="mac-dock-icon" title="Terminal">
+            <img src="/images/dock/terminal.png" alt="Terminal" />
+          </div>
+          <div className="mac-dock-icon" title="Books">
+            <img src="/images/dock/books.png" alt="Books" />
+          </div>
+          <div className="mac-dock-icon" title="Spotify">
+            <img src="/images/dock/spotify.png" alt="Spotify" />
+          </div>
+          <div className="mac-dock-icon" title="Mail">
+            <img src="/images/dock/mail.png" alt="Mail" />
+          </div>
+          <div className="mac-dock-icon" title="Cursor">
+            <img src="/images/dock/cursor.png" alt="Cursor" />
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
