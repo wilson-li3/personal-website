@@ -435,14 +435,28 @@
 
 .home-note-link {
   color: #52681D;
-  text-decoration: underline;
-  text-decoration-color: #86868b;
-  text-underline-offset: 2px;
+  text-decoration: none;
+  position: relative;
   transition: color 0.15s;
+}
+
+.home-note-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 1px;
+  width: 0;
+  background: #BAC67A;
+  transition: width 0.25s ease;
 }
 
 .home-note-link:hover {
   color: #86868b;
+}
+
+.home-note-link:hover::after {
+  width: 100%;
 }
 
 .home-note-nested-list {

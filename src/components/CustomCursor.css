@@ -1,0 +1,35 @@
+.custom-cursor {
+  position: fixed;
+  width: 28px;
+  height: 28px;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease-out, opacity 0.15s ease;
+  opacity: 0;
+}
+
+.custom-cursor.visible {
+  opacity: 1;
+}
+
+.custom-cursor .cursor-pencil {
+  color: #52681D;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.custom-cursor.pointer .cursor-pencil {
+  transform: rotate(-45deg) scale(1.1);
+  color: #BAC67A;
+}
+
+.custom-cursor.pointer {
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+@media (max-width: 768px), (hover: none) {
+  .custom-cursor {
+    display: none !important;
+  }
+}

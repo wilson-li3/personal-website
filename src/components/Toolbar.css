@@ -31,13 +31,14 @@
   justify-content: center;
   cursor: pointer;
   color: #52681D;
-  transition: color 0.1s;
+  transition: color 0.15s ease, transform 0.2s ease;
   flex-shrink: 0;
   text-decoration: none;
 }
 
 .toolbar-icon:hover {
   color: #BAC67A;
+  transform: scale(1.1);
 }
 
 .toolbar-icon.active {

@@ -19,6 +19,7 @@ function Layout({ children }) {
         { id: 'quotes-himym', path: '/quotes-himym', title: 'Quotes from HIMYM', preview: 'Favorite quotes from How I Met Your Mother', date: new Date(Date.now() - 4 * 86400000) },
         { id: 'photos', path: '/photos', title: 'Photos', preview: 'My photo collection', date: new Date(Date.now() - 5 * 86400000) },
         { id: 'gym-routine', path: '/gym-routine', title: 'Gym Routine', preview: 'My workout routine', date: new Date(Date.now() - 6 * 86400000) },
+    { id: 'doodle', path: '/doodle', title: 'Doodle', preview: 'Scribble on a note', date: new Date(Date.now() - 7 * 86400000) },
   ]
 
   useEffect(() => {

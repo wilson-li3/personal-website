@@ -24,6 +24,12 @@ body {
   display: flex;
 }
 
+/* Hide default cursor when custom pencil cursor is active (desktop only) */
+html.custom-cursor-active,
+html.custom-cursor-active * {
+  cursor: none !important;
+}
+
 /* Scrollbar styling for macOS-like appearance */
 ::-webkit-scrollbar {
   width: 10px;

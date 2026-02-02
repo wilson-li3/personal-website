@@ -60,7 +60,7 @@
   padding: 11px 16px;
   cursor: pointer;
   border-bottom: 1px solid #F5F5F5;
-  transition: background-color 0.1s;
+  transition: background-color 0.15s ease, transform 0.15s ease;
   border-left: none;
   position: relative;
   background-color: #ffffff;
@@ -72,6 +72,7 @@
 
 .note-item:hover {
   background-color: var(--note-list-hover-color);
+  transform: translateX(2px);
 }
 
 .note-item.selected {
