@@ -47,16 +47,25 @@ function MacLanding({ onEnter }) {
       {/* Floating Notes window - click anywhere to enter notes */}
       <div className="mac-notes-window" onClick={handleEnter} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleEnter(e); } }} aria-label="Enter notes">
         <div className="mac-window-inner">
-          <h1 className="mac-notes-title">wilson — personal notes</h1>
-          <div className="mac-notes-card">
-            <p className="mac-notes-preview">
-              notes has become a go to app for me. whether that is scribbling down tim horton's orders for my friends, writing down my thoughts, or reminders of what my friends love, what ive realized is that my notes have become a memorabilia of who I am today.
-            </p>
-            <p className="mac-notes-preview">
-              check out my about me and click around on the different notes to pick my brain
-            </p>
+          <div className="mac-window-titlebar" aria-hidden>
+            <div className="mac-window-buttons">
+              <span className="mac-window-btn mac-window-btn-close" />
+              <span className="mac-window-btn mac-window-btn-minimize" />
+              <span className="mac-window-btn mac-window-btn-maximize" />
+            </div>
           </div>
-          <span className="mac-browse-link">← browse all notes</span>
+          <div className="mac-window-content">
+            <h1 className="mac-notes-title">wilson — personal notes</h1>
+            <div className="mac-notes-card">
+              <p className="mac-notes-preview">
+                notes has become a go to app for me. whether that is scribbling down tim horton's orders for my friends, writing down my thoughts, or reminders of what my friends love, what ive realized is that my notes have become a memorabilia of who I am today.
+              </p>
+              <p className="mac-notes-preview">
+                check out my about me and click around on the different notes to pick my brain
+              </p>
+            </div>
+            <span className="mac-browse-link">← browse all notes</span>
+          </div>
         </div>
       </div>
     </div>
