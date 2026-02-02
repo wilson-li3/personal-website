@@ -28,13 +28,13 @@ function MacLanding({ onEnter }) {
             </div>
           </div>
           <div className="mac-window-content">
-            <h1 className="mac-notes-title">wilson — personal notes</h1>
+            <h1 className="mac-notes-title">wilson li — personal portfolio</h1>
             <div className="mac-notes-card">
               <p className="mac-notes-preview">
-                notes has become a go to app for me. whether that is scribbling down tim horton's orders for my friends, writing down my thoughts, or reminders of what my friends love, what ive realized is that my notes have become a memorabilia of who I am today.
+                Notes is where everything ends up for me. Quick reminders, half-formed ideas, random thoughts, and things I don't want to forget all live here. Over time, those small entries have added up into a quiet record of how I think and what I care about. Because of that, I thought It'd be perfect to present my portfolio using notes.
               </p>
               <p className="mac-notes-preview">
-                check out my about me and click around on the different notes to pick my brain
+                Browse around, open a few notes, and get a glimpse into how my mind works.
               </p>
             </div>
             <button type="button" className="mac-browse-button" onClick={handleEnter}>
