@@ -75,7 +75,7 @@ function Doodle() {
     ctx.moveTo(last.x, last.y)
     ctx.lineTo(point.x, point.y)
     if (t === 'eraser') {
-      ctx.strokeStyle = '#ffffff'
+      ctx.strokeStyle = '#fffef9'
       ctx.lineWidth = w * 6
     } else {
       ctx.strokeStyle = c
