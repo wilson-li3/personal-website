@@ -44,8 +44,8 @@ function MacLanding({ onEnter }) {
         </div>
       </header>
 
-      {/* Floating Notes window - click anywhere to enter notes */}
-      <div className="mac-notes-window" onClick={handleEnter} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleEnter(e); } }} aria-label="Enter notes">
+      {/* Floating Notes window */}
+      <div className="mac-notes-window">
         <div className="mac-window-inner">
           <div className="mac-window-titlebar" aria-hidden>
             <div className="mac-window-buttons">
@@ -64,7 +64,9 @@ function MacLanding({ onEnter }) {
                 check out my about me and click around on the different notes to pick my brain
               </p>
             </div>
-            <span className="mac-browse-link">← browse all notes</span>
+            <button type="button" className="mac-browse-button" onClick={handleEnter}>
+              ← browse all notes
+            </button>
           </div>
         </div>
       </div>
