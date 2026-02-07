@@ -24,6 +24,7 @@ function Home() {
   const handleReplay = () => {
     const video = videoRef.current
     if (video) {
+      video.pause()
       video.currentTime = 0
       video.play()
     }
