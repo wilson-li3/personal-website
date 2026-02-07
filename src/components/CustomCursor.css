@@ -1,10 +1,11 @@
+/* Pencil tip is at (2, 2) in the 24x24 SVG; align that point with the mouse */
 .custom-cursor {
   position: fixed;
   width: 28px;
   height: 28px;
   pointer-events: none;
   z-index: 9999;
-  transform: translate(-50%, -50%);
+  transform: translate(-2px, -2px);
   transition: transform 0.1s ease-out, opacity 0.15s ease;
   opacity: 0;
 }
@@ -17,6 +18,7 @@
   color: #52681D;
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
   transition: transform 0.15s ease, color 0.15s ease;
+  transform-origin: 2px 2px; /* rotate/scale around the tip so hotspot stays accurate */
 }
 
 .custom-cursor.pointer .cursor-pencil {
@@ -25,7 +27,7 @@
 }
 
 .custom-cursor.pointer {
-  transform: translate(-50%, -50%) scale(1.05);
+  transform: translate(-2px, -2px) scale(1.05);
 }
 
 /* Cursor over sidebar / note list: white so it doesn’t disappear on light green */
