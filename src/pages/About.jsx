@@ -22,6 +22,11 @@ function About() {
       </div>
       <div className="page-content about-page-content">
         <h1 className="about-title">hi, i'm wilson li</h1>
+        <p className="about-intro">
+          I am a software engineering student at the University of Waterloo who learns best by building. Personal projects are my way of exploring my interests and especially testing ideas; more often than not those ideas
+          fail but I never fail to learn from them. Many of these projects grow out of my interest in sports, where I enjoy exploring how mathematical models and statistical reasoning are used to make sense of performance and prediction. What keeps me interested is the process itself, starting with an imperfect
+          idea, learning from its failures, and slowly refining it into a coherent and useful fullstack application. That constant learning and cycle of iteration is what keeps me going.
+        </p>
         <ul className="about-list">
           <li>
             – software engineering student at the university of waterloo
