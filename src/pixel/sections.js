@@ -14,8 +14,8 @@ import { hero, about, projects, photos, quotes, contact } from '../content'
 // Grouped so the section reads as five rows rather than nineteen. Every tool
 // below appears in some project's `tech` string in content.js.
 const TOOL_GROUPS = [
-  { title: 'Languages', tools: ['python', 'javascript', 'sql'] },
-  { title: 'Frontend', tools: ['react', 'three.js', 'tailwind css'] },
+  { title: 'Languages', tools: ['python', 'java', 'C', 'C++', 'typescript', 'sql'] },
+  { title: 'Frontend', tools: ['angular','react', 'three.js', 'tailwind css'] },
   { title: 'Backend and APIs', tools: ['fastapi', 'rest apis', 'json'] },
   { title: 'Data and ML', tools: ['pandas', 'numpy', 'scikit-learn', 'matplotlib', 'opencv', 'mediapipe'] },
   {
