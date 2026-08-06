@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import IconX from '~icons/tabler/x'
+import IconZoomIn from '~icons/tabler/zoom-in'
+import IconPlayerPlayFilled from '~icons/tabler/player-play-filled'
 import { hero } from '../content'
 import { Header, Links } from './Chrome'
 import { SECTIONS, THUMBS, TOTAL } from './sections'
@@ -22,6 +24,7 @@ import './Site.css'
  */
 
 const HAND = 0.85 // hero → panel handoff point, in viewport heights
+const TRAVEL_MS = 1600 // the ride from the foot of the page up to a picked section
 const SKY_TRAVEL = 6 // how many viewport heights the sky drifts over the scroll
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v))
 
@@ -66,22 +69,29 @@ function Sky({ skyRef, starsRef, cloudsRef }) {
 /* Rows ---------------------------------------------------------------------- */
 
 function Shots({ shots, onZoom }) {
+  const hasVideo = shots.some((s) => s.youtube)
   return (
     <div className="shots">
       {shots.map((shot) => (
         <button
           key={shot.src}
           type="button"
-          className="frame frame--shot"
+          className={`frame frame--shot ${shot.youtube ? 'frame--video' : ''}`}
           onClick={(e) => {
             e.stopPropagation()
-            onZoom({ src: shot.src, description: shot.alt })
+            onZoom({ src: shot.src, description: shot.alt, youtube: shot.youtube })
           }}
-          aria-label={`Enlarge ${shot.alt}`}
+          aria-label={shot.youtube ? `Play ${shot.alt}` : `Enlarge ${shot.alt}`}
         >
           <img src={shot.thumb} alt={shot.alt} decoding="async" />
+          <span className="frame-zoom" aria-hidden="true">
+            {shot.youtube ? <IconPlayerPlayFilled /> : <IconZoomIn />}
+          </span>
         </button>
       ))}
+      {/* the gallery says this in its own lead copy; the project rows had no
+          equivalent, so nothing told you these were openable */}
+      <span className="shots-hint">{hasVideo ? 'CLICK TO PLAY OR ENLARGE' : 'CLICK TO ENLARGE'}</span>
     </div>
   )
 }
@@ -155,6 +165,9 @@ function Gallery({ section, onZoom }) {
               aria-label={`Enlarge ${frame.alt}`}
             >
               <img src={frame.thumb} alt={frame.alt} decoding="async" />
+              <span className="frame-zoom" aria-hidden="true">
+                <IconZoomIn />
+              </span>
             </button>
             <figcaption className="caption">{frame.caption}</figcaption>
           </figure>
@@ -191,7 +204,19 @@ function Lightbox({ item, onClose }) {
           <button type="button" className="lightbox-close" onClick={onClose} aria-label="Close photo">
             <IconX aria-hidden="true" />
           </button>
-          <img src={item.src} alt={item.description} />
+          {item.youtube ? (
+            /* nocookie host, and no autoplay until the dialog is actually open —
+               the iframe only exists while `item` does, so closing stops it */
+            <iframe
+              className="lightbox-video"
+              src={`https://www.youtube-nocookie.com/embed/${item.youtube}?autoplay=1&rel=0&modestbranding=1`}
+              title={item.description}
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          ) : (
+            <img src={item.src} alt={item.description} />
+          )}
           <figcaption>{item.description}</figcaption>
         </figure>
       )}
@@ -276,33 +301,82 @@ function Site({ target, onHome }) {
     const previous = window.history.scrollRestoration
     if (previous) window.history.scrollRestoration = 'manual'
 
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const i = Math.max(0, SECTIONS.findIndex((s) => s.id === target))
-    const land = () => {
-      if (i === 0) {
-        window.scrollTo(0, 0)
-        return
-      }
+    const bottom = () => Math.max(1, document.documentElement.scrollHeight - window.innerHeight)
+    const destination = () => {
+      if (i === 0) return 0
       const vh = window.innerHeight
       const hand = vh * HAND
-      const max = Math.max(1, document.documentElement.scrollHeight - vh)
-      const step = (max - hand) / SECTIONS.length
-      window.scrollTo(0, hand + (i + 0.5) * step)
+      const step = (bottom() - hand) / SECTIONS.length
+      return hand + (i + 0.5) * step
     }
 
-    land()
+    /* Arrive at the far end of the scroll and travel back up to the section the
+       club promised. Landing on it directly hid the fact that anything else was
+       there; riding past the other sections says so without a word. */
+    window.scrollTo(0, bottom())
     sync()
-    // Once more after paint, in case the track had not been laid out yet. Only
-    // if nothing has moved us in the meantime — in a background tab this frame
-    // can be throttled for seconds, and re-landing then would yank a reader
-    // who had already started scrolling.
-    const settled = window.scrollY
-    const raf = requestAnimationFrame(() => {
-      if (Math.abs(window.scrollY - settled) > 2) return
-      land()
+
+    let raf = 0
+    let guard = 0
+    let arrived = false
+    let cancelled = false
+    const stop = () => {
+      cancelled = true
+    }
+
+    /* The ride is decoration, so it must never be load-bearing: a hidden tab
+       fires no animation frames at all, and without this the visitor would be
+       left sitting at the foot of the page. Anything other than a plain visible
+       run lands on the section outright. */
+    const arrive = () => {
+      cancelAnimationFrame(raf)
+      window.scrollTo(0, destination())
       sync()
-    })
+    }
+
+    if (reduced || document.hidden) {
+      arrive()
+    } else {
+      raf = requestAnimationFrame(() => {
+        // re-seated here because the track may not have been laid out above
+        window.scrollTo(0, bottom())
+        const from = window.scrollY
+        const to = destination()
+        if (cancelled || Math.abs(to - from) < 4) {
+          arrive()
+          return
+        }
+        const start = performance.now()
+        const ease = (u) => 1 - (1 - u) ** 3
+        const travel = (now) => {
+          if (cancelled) return
+          const u = Math.min(1, (now - start) / TRAVEL_MS)
+          window.scrollTo(0, from + (to - from) * ease(u))
+          sync()
+          if (u < 1) raf = requestAnimationFrame(travel)
+          else arrived = true
+        }
+        raf = requestAnimationFrame(travel)
+      })
+      // and if the frames stop coming mid-ride, finish the job anyway
+      guard = setTimeout(() => {
+        if (!arrived && !cancelled) arrive()
+      }, TRAVEL_MS + 500)
+    }
+
+    // any deliberate input hands control straight back to the reader
+    window.addEventListener('wheel', stop, { passive: true })
+    window.addEventListener('touchstart', stop, { passive: true })
+    window.addEventListener('keydown', stop)
+
     return () => {
       cancelAnimationFrame(raf)
+      clearTimeout(guard)
+      window.removeEventListener('wheel', stop)
+      window.removeEventListener('touchstart', stop)
+      window.removeEventListener('keydown', stop)
       if (previous) window.history.scrollRestoration = previous
     }
   }, [target, sync])
@@ -338,14 +412,7 @@ function Site({ target, onHome }) {
         <pixel-ball ref={ballRef} idle="0" start-angle="4.95" max-size="580" />
       </div>
 
-      <Header
-        onHome={goHome}
-        action={
-          <button type="button" className="back" onClick={goHome}>
-            <span aria-hidden="true">←</span> BACK TO THE BAG
-          </button>
-        }
-      />
+      <Header onHome={goHome} />
 
       <div className="progress" aria-hidden="true">
         <div ref={barRef} className="progress-fill" />

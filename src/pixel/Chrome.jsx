@@ -17,7 +17,7 @@ import './Chrome.css'
 const LINK_IDS = ['github', 'linkedin', 'email']
 const LINK_LABELS = { github: 'GitHub', linkedin: 'LinkedIn', email: 'Email' }
 
-export function Header({ action, onHome }) {
+export function Header({ onHome }) {
   return (
     <header className="chrome-head">
       {onHome ? (
@@ -27,7 +27,6 @@ export function Header({ action, onHome }) {
       ) : (
         <Mark cell={2} color="currentColor" />
       )}
-      {action}
     </header>
   )
 }

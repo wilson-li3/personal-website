@@ -85,7 +85,14 @@ export const projects = {
       tech: 'python, fastapi, postgresql, pgvector, openai api, docker, aws',
       blurb:
         "ask it anything about the box scores in plain english, or pull the day's picks and simulate how often a slip actually cashes",
+      // A slot with `youtube` opens the player instead of the picture; `src` is
+      // the still it shows in the row until then.
       images: [
+        {
+          src: '/images/courtiq-demo.jpg',
+          alt: 'CourtIQ demo',
+          youtube: 'APjUfBE8fqs',
+        },
         { src: '/images/courtiq1.png', alt: 'CourtIQ factor analysis for a single pick' },
         { src: '/images/courtiq2.png', alt: 'CourtIQ Monte Carlo simulation of a bet slip' },
       ],
@@ -246,12 +253,12 @@ export const photos = {
   // version for the grid — the originals are 3-6k px wide and far too heavy
   // to decode into a 200px cell.
   featured: [
-    'IMG_2367.webp',
-    'IMG_1706.webp',
-    'IMG_3129.webp',
-    'IMG_5444_jpg.webp',
-    'IMG_5855.webp',
-    'IMG_6735.webp',
+    'IMG_0001.webp',
+    'IMG_4926.webp',
+    'IMG_4933.webp',
+    'IMG_0003.webp',
+    'IMG_6209.webp',
+    'IMG_6738.webp',
   ],
   items: [
     { src: '/images/IMG_0001.webp', description: "se30 except eugene was sick and kevin's batman" },

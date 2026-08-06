@@ -155,8 +155,6 @@
   background: rgba(240, 208, 113, 0.85);
 }
 
-/* The way back to the bag. It carries its own scrim chip because the sky
-   behind it runs from near-white at the ground to near-black in space. */
 /* The bar and the links both carry their own scrim, because the sky behind
    them runs from near-white at the ground to near-black up in space and no
    single ink colour survives the whole climb. */
@@ -191,17 +189,6 @@
 .stage .chrome-links a:hover {
   color: #f0d071;
   border-bottom-color: #f0d071;
-}
-
-.back {
-  font-family: 'Press Start 2P', monospace;
-  font-size: 10px;
-  letter-spacing: 0.06em;
-  color: inherit;
-}
-
-.back:hover {
-  color: #f0d071;
 }
 
 /* Hero --------------------------------------------------------------------- */
@@ -486,9 +473,67 @@
   border-color: rgba(240, 208, 113, 0.6);
 }
 
+/* Sits at a low opacity rather than appearing on hover: a hover-only cue tells
+   nobody on a touch screen, and tells nobody on a desktop until too late. */
+.frame-zoom {
+  position: absolute;
+  z-index: 2;
+  right: 4px;
+  bottom: 4px;
+  display: grid;
+  place-items: center;
+  width: 19px;
+  height: 19px;
+  color: #e8eef2;
+  background: rgba(4, 6, 11, 0.72);
+  border: 1px solid rgba(232, 238, 242, 0.28);
+  opacity: 0.6;
+  transition: opacity 120ms linear;
+  pointer-events: none;
+}
+
+.frame-zoom svg {
+  width: 12px;
+  height: 12px;
+}
+
+.frame:hover .frame-zoom,
+.frame:focus-visible .frame-zoom {
+  opacity: 1;
+  color: #f0d071;
+  border-color: rgba(240, 208, 113, 0.6);
+}
+
+/* A video reads as one at a glance: the play badge sits square in the middle at
+   full strength, where the zoom badge is a quiet corner mark. */
+.frame--video .frame-zoom {
+  right: auto;
+  bottom: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 26px;
+  height: 26px;
+  opacity: 1;
+}
+
+.frame--video .frame-zoom svg {
+  width: 13px;
+  height: 13px;
+  /* the glyph's mass sits left of centre; nudge it back onto the button */
+  margin-left: 1px;
+}
+
 .shots {
   display: flex;
+  align-items: center;
   gap: 9px;
+}
+
+.shots-hint {
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  color: #7d909d;
 }
 
 .frame--shot {
@@ -531,14 +576,22 @@
 
 /* Lightbox ----------------------------------------------------------------- */
 
+/* The frame is a fixed near-fullscreen box, NOT sized to the image. Sizing to
+   the image meant the dialog shrink-wrapped whatever intrinsic size the file
+   had at the moment it opened — and on a first click the full-size file has not
+   downloaded yet, so it opened small and only came out right on a second click
+   once the image was cached. A fixed box is the same size either way, and the
+   old 76vh ceiling is gone, so the 2.5k-wide project dashboards get real room. */
 .lightbox {
   /* index.css zeroes every margin, which also kills a modal dialog's centring */
   margin: auto;
   padding: 0;
   border: none;
   background: none;
-  max-width: 92vw;
-  max-height: 92vh;
+  width: 96vw;
+  height: 94vh;
+  max-width: 96vw;
+  max-height: 94vh;
   color: #e8eef2;
 }
 
@@ -549,6 +602,8 @@
 .lightbox-body {
   position: relative;
   margin: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   gap: 11px;
@@ -557,16 +612,31 @@
   padding: 14px;
 }
 
+/* Fills the space the caption leaves. min-height:0 is what lets it shrink
+   inside the flex column instead of shoving the caption off the bottom. */
 .lightbox-body img {
-  max-width: 100%;
-  max-height: 76vh;
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
   object-fit: contain;
 }
 
+/* Matches the image rule so the player gets the same box a picture would. */
+.lightbox-video {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  border: 0;
+  background: #000;
+}
+
 .lightbox-body figcaption {
-  font-size: 10px;
-  letter-spacing: 0.1em;
+  flex: 0 0 auto;
+  font-size: 12px;
+  letter-spacing: 0.08em;
   color: #9cb0bd;
+  /* clear of the close button in the top-right */
+  padding-right: 40px;
 }
 
 .lightbox-close {

@@ -43,6 +43,23 @@ const COS_R=Math.cos(0.152), SIN_R=Math.sin(0.152);
 
 const GRID = 18, MAXPER = 32, REACH = 0.165;
 
+const TAU = Math.PI*2;
+/* radians of spin per pixel scrolled — the feel of the thing. The exact rate
+   used is this rounded to a whole number of turns over the page (see
+   measureSpin), so the brand decal lands facing front at the bottom. */
+const BASE_RATE = 0.011;
+/* The text decal is wide, and the far point of its swing only takes its centre
+   to about -0.53, so some corner of a title is on the visible face at EVERY
+   angle — there is no moment when simply waiting would hide a swap. So it is
+   dissolved out as it nears the limb: solid while its centre is at or above
+   TEXT_FADE_HI, gone at or below TEXT_FADE_LO. That leaves roughly a fifth of
+   each turn with no title drawn at all, which is when a queued one is taken. */
+const TEXT_FADE_LO = -0.34;
+const TEXT_FADE_HI = -0.02;
+/* 4x4 ordered dither — the dissolve is done by dropping pixels on this
+   threshold rather than by blending, to stay in the pixel idiom. */
+const BAYER4 = [0,8,2,10, 12,4,14,6, 3,11,1,9, 15,7,13,5];
+
 /* ---- brand decal frame, fixed to the surface ---- */
 const TILT  = 48*Math.PI/180, DEC_W = 0.72, DEC_H = DEC_W*MH_LO/MW_LO;
 let AX=0.90, AY=0.34, AZ=0.27;
@@ -118,8 +135,12 @@ class PixelBall extends HTMLElement{
     this.cv = this.shadowRoot.querySelector("canvas");
     this.ctx = this.cv.getContext("2d");
     this.angle = 0;
+    this.base = 0;     /* start angle */
+    this.spin = 0;     /* accumulated idle spin, kept apart from the scroll term */
+    this.rate = BASE_RATE;
     this.drift = 0;
     this.textMask = null;
+    this.pendingLabel = null;
     this.RES = 0;
     this.cellCount = new Int32Array(GRID*GRID);
     this.cellItems = new Int32Array(GRID*GRID*MAXPER);
@@ -136,9 +157,9 @@ class PixelBall extends HTMLElement{
 
   connectedCallback(){
     const sa = parseFloat(this.getAttribute("start-angle") || this.getAttribute("startangle"));
-    if(!isNaN(sa)){ this._started=true; this.angle = sa; }
-    this.lastScroll = window.scrollY;
+    if(!isNaN(sa)){ this._started=true; this.base = sa; this.angle = sa; }
     this.last = performance.now();
+    this.measureSpin();
     this.layout();
     if(this.getAttribute("label")) this.setLabel(this.getAttribute("label"));
     this.ro = new ResizeObserver(()=>this.layout());
@@ -153,14 +174,32 @@ class PixelBall extends HTMLElement{
   set startAngle(v){
     const sa=parseFloat(v);
     if(isNaN(sa) || this._started) return;
-    this._started=true; this.angle=sa;
+    this._started=true; this.base=sa; this.angle=sa;
     if(this.P) this.draw(sa);
   }
   get startAngle(){ return this.angle; }
 
+  /* Round the spin to a whole number of turns across the page's scroll range,
+     so scrolling to the bottom returns the ball to the angle it started at and
+     the brand decal is square to the viewer again. */
+  measureSpin(){
+    const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    const turns = Math.max(1, Math.round(maxScroll*BASE_RATE/TAU));
+    this.rate = turns*TAU/maxScroll;
+  }
+
+  /* Queued, not applied. Swapping the mask outright let a new title appear on
+     whatever face happened to be pointed at the viewer; the queue holds it
+     until the decal is round the back, so every title rolls into view. */
   setLabel(t){
     const next = String(t||"");
-    if(next === this._label) return;
+    if(next === this._label){ this.pendingLabel = null; return; }
+    this.pendingLabel = next;
+  }
+
+  commitLabel(){
+    const next = this.pendingLabel;
+    this.pendingLabel = null;
     this._label = next;
     this.textMask = next ? makeTextMask(next) : null;
   }
@@ -190,7 +229,7 @@ class PixelBall extends HTMLElement{
     this.buf=this.img.data;
     const cx=res/2, cy=res/2;
     const edgeR=Math.pow((RAD-1.35)/RAD,2);
-    const I=[],X=[],Y=[],Z=[],E=[],C=[];
+    const I=[],X=[],Y=[],Z=[],E=[],C=[],D=[];
     for(let y=0;y<res;y++) for(let x=0;x<res;x++){
       const sx=(x+0.5-cx)/RAD, sy=(cy-(y+0.5))/RAD;
       const d2=sx*sx+sy*sy;
@@ -200,19 +239,26 @@ class PixelBall extends HTMLElement{
       if(gy<0)gy=0; else if(gy>=GRID)gy=GRID-1;
       I.push((y*res+x)*4); X.push(sx); Y.push(sy); Z.push(Math.sqrt(1-d2));
       E.push(d2>edgeR?1:0); C.push(gy*GRID+gx);
+      D.push(BAYER4[(y&3)*4+(x&3)]);   /* fixed to the screen, so the dissolve
+                                          reads as a texture, not as crawl */
     }
     this.P=I.length;
     this.pI=new Int32Array(I); this.pX=new Float32Array(X); this.pY=new Float32Array(Y);
     this.pZ=new Float32Array(Z); this.pEdge=new Uint8Array(E); this.pCell=new Int32Array(C);
+    this.pDith=new Uint8Array(D);
   }
 
+  /* The scroll term is absolute rather than accumulated: summing per-frame
+     deltas drifts, and the whole point of the rounded rate is that the bottom
+     of the page lands on an exact whole number of turns from the top. */
   _frame(now){
     const dt=Math.min(64, now-this.last); this.last=now;
-    const y=window.scrollY;
-    this.angle += (y-this.lastScroll)*0.011;
-    this.lastScroll=y;
+    /* re-measured on a throttle rather than once on connect: the scroll track
+       is a sibling that may not be in the document yet when this first runs */
+    if(now - (this._measured||0) > 400){ this._measured = now; this.measureSpin(); }
     const idle=parseFloat(this.getAttribute("idle"));
-    if(!reduced && idle) this.angle += idle*dt/1000;
+    if(!reduced && idle) this.spin += idle*dt/1000;
+    this.angle = this.base + window.scrollY*this.rate + this.spin;
     this.draw(this.angle);
     this.raf=requestAnimationFrame(this._frame);
   }
@@ -225,6 +271,15 @@ class PixelBall extends HTMLElement{
     const m0=t*AX*AX+c,    m1=t*AX*AY-s*AZ, m2=t*AX*AZ+s*AY;
     const m3=t*AX*AY+s*AZ, m4=t*AY*AY+c,    m5=t*AY*AZ-s*AX;
     const m6=t*AX*AZ-s*AY, m7=t*AY*AZ+s*AX, m8=t*AZ*AZ+c;
+
+    /* How much of the title is showing this frame, 0 to 1. A queued title is
+       taken only while this is 0 — nothing is drawn then, so nothing is seen to
+       change, and the new one dissolves in as the decal comes back round. */
+    const tcz = m6*tcX+m7*tcY+m8*tcZ;
+    let fade = (tcz-TEXT_FADE_LO)/(TEXT_FADE_HI-TEXT_FADE_LO);
+    if(fade<0) fade=0; else if(fade>1) fade=1;
+    if(this.pendingLabel !== null && fade === 0) this.commitLabel();
+    const fadeLvl = fade*16;
 
     cellCount.fill(0);
     let vis=0;
@@ -252,10 +307,10 @@ class PixelBall extends HTMLElement{
 
     /* text decal: engraved on the surface, so it rotates away with the ball */
     const tm=this.textMask;
-    const TCx=m0*tcX+m1*tcY+m2*tcZ, TCy=m3*tcX+m4*tcY+m5*tcZ, TCz=m6*tcX+m7*tcY+m8*tcZ;
+    const TCx=m0*tcX+m1*tcY+m2*tcZ, TCy=m3*tcX+m4*tcY+m5*tcZ;
     const THx=m0*thX+m1*thY+m2*thZ, THy=m3*thX+m4*thY+m5*thZ, THz=m6*thX+m7*thY+m8*thZ;
     const TWx=m0*twX+m1*twY+m2*twZ, TWy=m3*twX+m4*twY+m5*twZ, TWz=m6*twX+m7*twY+m8*twZ;
-    const textNear = tm && TCz > -0.55;
+    const textNear = tm && fade > 0;
 
     for(let p=0;p<this.P;p++){
       const nx=this.pX[p], ny=this.pY[p], nz=this.pZ[p];
@@ -297,7 +352,7 @@ class PixelBall extends HTMLElement{
           }
         }
       }
-      if(textNear && (nx*TCx+ny*TCy+nz*TCz) > 0.66){
+      if(textNear && this.pDith[p] < fadeLvl && (nx*TCx+ny*TCy+nz*tcz) > 0.66){
         let a=nx*THx+ny*THy+nz*THz; if(a>1)a=1; else if(a<-1)a=-1;
         const du=Math.asin(a)/tm.dw;
         if(du>-1 && du<1){
