@@ -1,0 +1,629 @@
+/* Content stage — a fixed screen flown by scroll, not a scrolling document.
+   Geometry, color and type are from the design handoff and are final.
+   Nothing here touches the landing screen; Landing.css owns that. */
+
+.stage {
+  font-family: 'JetBrains Mono', ui-monospace, 'Courier New', monospace;
+  -webkit-font-smoothing: antialiased;
+  color: #e8eef2;
+}
+
+/* The scroll range. Everything visible is position: fixed — this empty block
+   is the only thing with height, and the whole stage is driven off it. */
+.track {
+  height: 700vh;
+}
+
+/* Sky ---------------------------------------------------------------------- */
+
+/* Banded stops, each color held across a range, so altitude changes read as
+   hard pixel-art steps rather than a smooth blend. */
+.sky {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-repeat: no-repeat;
+  background-size: 100% 700vh;
+  background-image: linear-gradient(
+    #04050a 0 8%,
+    #080b18 8% 16%,
+    #0d1330 16% 25%,
+    #152245 25% 34%,
+    #1e3660 34% 43%,
+    #2a5480 43% 52%,
+    #3a7aa4 52% 61%,
+    #559ec2 61% 70%,
+    #7cbcd6 70% 79%,
+    #a8d5e4 79% 87%,
+    #cfe6ea 87% 96%,
+    #a9c6b4 96% 97.5%,
+    #3f7340 97.5% 100%
+  );
+}
+
+.stars {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: 0;
+  background-image: radial-gradient(#fff 0 1.1px, transparent 1.2px),
+    radial-gradient(#cfe3ff 0 1px, transparent 1.1px);
+  background-size: 230px 200px, 150px 280px;
+  background-position: 0 0, 70px 50px;
+}
+
+.clouds {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* Pixel clouds: one base box plus offset box-shadows. No images. */
+.cloud {
+  position: absolute;
+  left: 0;
+  animation: drift linear infinite;
+}
+
+.cloud--low {
+  top: 82vh;
+  width: 120px;
+  height: 22px;
+  background: #b9cfe0;
+  box-shadow: 30px -14px 0 #b9cfe0, 68px -6px 0 #b9cfe0, -20px 7px 0 #b9cfe0;
+  opacity: 0.42;
+  animation-duration: 128s;
+}
+
+.cloud--mid {
+  top: 56vh;
+  width: 96px;
+  height: 18px;
+  background: #c8dced;
+  box-shadow: 24px -12px 0 #c8dced, 54px -4px 0 #c8dced;
+  opacity: 0.34;
+  animation-duration: 166s;
+  animation-delay: -60s;
+}
+
+.cloud--cirrus {
+  top: calc(-190vh + 44vh);
+  width: 140px;
+  height: 6px;
+  background: rgba(214, 236, 250, 0.3);
+  box-shadow: 180px 30px 0 rgba(214, 236, 250, 0.22);
+  animation-duration: 210s;
+  animation-delay: -110s;
+}
+
+@keyframes drift {
+  from {
+    transform: translateX(-24vw);
+  }
+  to {
+    transform: translateX(112vw);
+  }
+}
+
+.scanlines {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.13) 0 1px, transparent 1px 3px);
+}
+
+/* Ball --------------------------------------------------------------------- */
+
+/* Fixed size for the entire scroll: the dock never shrinks or moves, and
+   nothing is ever drawn in front of the ball. */
+.dock {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 46vw;
+  height: 74vh;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.dock pixel-ball {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Chrome ------------------------------------------------------------------- */
+
+.progress {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  z-index: 8;
+  background: rgba(232, 238, 242, 0.12);
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0;
+  background: rgba(240, 208, 113, 0.85);
+}
+
+/* The way back to the bag. It carries its own scrim chip because the sky
+   behind it runs from near-white at the ground to near-black in space. */
+/* The bar and the links both carry their own scrim, because the sky behind
+   them runs from near-white at the ground to near-black up in space and no
+   single ink colour survives the whole climb. */
+.stage .chrome-head {
+  color: #c6d4dd;
+  background: rgba(4, 6, 11, 0.72);
+  border-bottom: 1px solid rgba(232, 238, 242, 0.16);
+}
+
+.stage .chrome-links {
+  color: #c6d4dd;
+  background: rgba(4, 6, 11, 0.55);
+  padding: 10px 14px;
+}
+
+.stage .chrome-mark:hover {
+  color: #f0d071;
+}
+
+.stage .chrome-links {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12.5px;
+  /* clear of the progress bar pinned to the very bottom */
+  bottom: 22px;
+}
+
+.stage .chrome-links a {
+  color: #c6d4dd;
+  border-bottom: 1px solid rgba(198, 212, 221, 0.35);
+}
+
+.stage .chrome-links a:hover {
+  color: #f0d071;
+  border-bottom-color: #f0d071;
+}
+
+.back {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: inherit;
+}
+
+.back:hover {
+  color: #f0d071;
+}
+
+/* Hero --------------------------------------------------------------------- */
+
+/* Dark ink on purpose: at scroll 0 the sky behind this is the pale haze band,
+   not the deep blue. Do not switch it to white. */
+.hero {
+  position: fixed;
+  z-index: 5;
+  left: 52vw;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40vw;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.hero-name {
+  margin: 0;
+  font-family: 'Press Start 2P', monospace;
+  font-size: clamp(20px, 2.6vw, 32px);
+  line-height: 1.6;
+  text-transform: uppercase;
+  color: #0a1016;
+  text-shadow: 2px 2px 0 rgba(255, 255, 255, 0.35);
+}
+
+.hero-line {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.9;
+  color: #132029;
+  max-width: 40ch;
+  text-wrap: pretty;
+}
+
+/* second half of the greeting, so it sits with the line it belongs to */
+.hero-sub {
+  margin: -14px 0 0;
+  font-size: 12.5px;
+  line-height: 1.9;
+  color: #2c3d34;
+  max-width: 40ch;
+  text-wrap: pretty;
+}
+
+.hero-scroll {
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  color: #2c3d34;
+}
+
+/* Panel -------------------------------------------------------------------- */
+
+/* The scrim is required. The sky sweeps from near-white to near-black across
+   the scroll, and it is the only way one light text palette holds contrast at
+   every altitude — per-section text colors fail in the mid-blue range. */
+.panel {
+  position: fixed;
+  z-index: 5;
+  left: 48vw;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  /* top padding clears the fixed bar, which spans the full width; the bottom
+     is tighter than the handoff's 6vh to win back the room the bar cost */
+  padding: 88px 4vw 4vh;
+  overflow-y: auto;
+  background: linear-gradient(90deg, rgba(4, 6, 11, 0) 0, rgba(4, 6, 11, 0.62) 14%, rgba(4, 6, 11, 0.78) 100%);
+}
+
+/* Vertically centred while the section fits, scrollable once it does not.
+   The auto margins do the centring rather than justify-content, because a
+   centred flex column clips its own overflow beyond the reach of scrolling. */
+.panel-inner {
+  margin: auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.panel-head {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+
+.panel-label {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: #fff;
+}
+
+.panel-rule {
+  flex: 1;
+  height: 1px;
+  background: rgba(232, 238, 242, 0.16);
+}
+
+.panel-count {
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: #9cb0bd;
+}
+
+.lead {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.85;
+  color: #c6d4dd;
+  max-width: 52ch;
+  text-wrap: pretty;
+}
+
+/* Rows --------------------------------------------------------------------- */
+
+.rows {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  padding: 14px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  opacity: 0.78;
+  border-top: 1px solid rgba(232, 238, 242, 0.16);
+}
+
+.row.is-open {
+  opacity: 1;
+}
+
+.row-head {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  width: 100%;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+}
+
+/* nothing to click in an expanded section */
+.row.is-fixed .row-head {
+  cursor: default;
+}
+
+.row-idx {
+  flex: none;
+  width: 22px;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: #f0d071;
+}
+
+.row-title {
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1.45;
+  color: #8fa2af;
+}
+
+.row.is-open .row-title {
+  color: #ffffff;
+}
+
+.row-spacer {
+  flex: 1;
+}
+
+.row-meta {
+  flex: none;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+  color: #9cb0bd;
+}
+
+.row-body {
+  margin-left: 38px;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.body {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.85;
+  max-width: 52ch;
+  text-wrap: pretty;
+  color: #c6d4dd;
+}
+
+/* Wilson's own read on a quote, set under the line itself. */
+.note {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.85;
+  max-width: 52ch;
+  text-wrap: pretty;
+  color: #9cb0bd;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.group-label {
+  margin: 0;
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  color: #9cb0bd;
+}
+
+.group-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12.5px;
+  line-height: 1.6;
+  /* wider than the 52ch used for prose: these are clipped technical fragments,
+     not sentences to read at length, and at 52ch they wrap three deep and push
+     the longest projects past the bottom of the panel */
+  max-width: 68ch;
+  color: #c6d4dd;
+}
+
+.row-link {
+  align-self: flex-start;
+  font-size: 12.5px;
+  color: #f0d071;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(240, 208, 113, 0.35);
+}
+
+.row-link:hover {
+  color: #fff;
+  border-bottom-color: #fff;
+}
+
+/* Image frames ------------------------------------------------------------- */
+
+/* The image is taken out of flow so the frame's height comes from its own
+   box — otherwise the frame sizes to the photo and the photo sizes to the
+   frame, and the portrait shots come out twice as tall as the landscape ones. */
+.frame {
+  position: relative;
+  display: block;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid rgba(232, 238, 242, 0.18);
+  background: rgba(4, 6, 11, 0.4);
+  cursor: pointer;
+}
+
+.frame img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.frame:hover {
+  border-color: rgba(240, 208, 113, 0.6);
+}
+
+.shots {
+  display: flex;
+  gap: 9px;
+}
+
+.frame--shot {
+  flex: none;
+  width: 104px;
+  height: 70px;
+}
+
+/* Gallery ------------------------------------------------------------------ */
+
+.gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.cell {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.cell .frame {
+  aspect-ratio: 4 / 3;
+  height: auto;
+}
+
+.caption {
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  color: #9cb0bd;
+}
+
+/* Lightbox ----------------------------------------------------------------- */
+
+.lightbox {
+  /* index.css zeroes every margin, which also kills a modal dialog's centring */
+  margin: auto;
+  padding: 0;
+  border: none;
+  background: none;
+  max-width: 92vw;
+  max-height: 92vh;
+  color: #e8eef2;
+}
+
+.lightbox::backdrop {
+  background: rgba(4, 6, 11, 0.88);
+}
+
+.lightbox-body {
+  position: relative;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  border: 1px solid rgba(232, 238, 242, 0.18);
+  background: rgba(4, 6, 11, 0.78);
+  padding: 14px;
+}
+
+.lightbox-body img {
+  max-width: 100%;
+  max-height: 76vh;
+  object-fit: contain;
+}
+
+.lightbox-body figcaption {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: #9cb0bd;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  color: #e8eef2;
+  background: rgba(4, 6, 11, 0.7);
+  border: 1px solid rgba(232, 238, 242, 0.18);
+  cursor: pointer;
+}
+
+.lightbox-close:hover {
+  color: #f0d071;
+}
+
+/* Narrow screens ----------------------------------------------------------- */
+
+/* Desktop-first by design. Below 900px the 48/52vw split stops working, so the
+   ball drops back to a faint backdrop and the content takes the full width. */
+@media (max-width: 900px) {
+  .dock {
+    width: 100vw;
+    height: 100vh;
+    opacity: 0.28;
+  }
+
+  .hero {
+    left: 6vw;
+    width: 88vw;
+  }
+
+  .panel {
+    left: 0;
+    padding: 8vh 6vw;
+    background: linear-gradient(90deg, rgba(4, 6, 11, 0.7) 0, rgba(4, 6, 11, 0.82) 100%);
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .row-body {
+    margin-left: 0;
+  }
+
+  .shots {
+    flex-wrap: wrap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cloud {
+    animation: none;
+  }
+}

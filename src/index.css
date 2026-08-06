@@ -1,50 +1,169 @@
+/* ============================================================
+   PIXEL CLUBHOUSE — tokens & base
+   16-bit golf: green felt, cream cards, hard offset shadows,
+   everything on a 4px grid. See DESIGN.md.
+   ============================================================ */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html, body {
-  height: 100%;
-  overflow: hidden;
+:root {
+  /* Greens */
+  --pix-page: #0f120e;
+  --pix-wall: #21402c;
+  --pix-wall-deep: #1a3323;
+  --pix-grass: #4b7a44;
+  --pix-divider: #2b4c33;
+  --pix-hud-text: #cfe0c4;
+
+  /* Reds */
+  --pix-bag: #a02b34;
+  --pix-pocket: #8c222b;
+  --pix-dark-red: #6d181f;
+  --pix-red: #96222c;
+  --pix-stripe: #8f2630;
+
+  /* Creams */
+  --pix-cream: #eee2c6;
+  --pix-cream-hi: #fff6e2;
+  --pix-cream-lo: #c9bda2;
+  --pix-label: #6b6255;
+
+  /* Gold + ink */
+  --pix-gold: #e8c76a;
+  --pix-gold-hi: #fff3d2;
+  --pix-ink: #241d18;
+  --pix-black: #1b1d21;
+  --pix-steel: #9aa2af;
+  --pix-steel-hi: #dfe4ec;
+
+  /* Type. The Wilson script is drawn on the grid (see Mark.jsx), not set. */
+  --font-pixel: 'Press Start 2P', monospace;
+  --font-body: 'VT323', 'Courier New', monospace;
+
+  /* Pixel grid: every spacing step is a multiple of 4 */
+  --u1: 4px;
+  --u2: 8px;
+  --u3: 12px;
+  --u4: 16px;
+  --u6: 24px;
+  --u8: 32px;
+  --u12: 48px;
+  --u16: 64px;
+
+  --z-content: 1;
+  --z-nav: 50;
+  --z-modal: 100;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: #F5F5F7;
-  color: #1d1d1f;
+  font-family: var(--font-body);
+  font-size: 22px;
+  line-height: 1.25;
+  color: var(--pix-cream);
+  background: var(--pix-page);
+  -webkit-font-smoothing: none;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
 }
 
-#root {
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-  display: flex;
+img,
+video,
+canvas {
+  max-width: 100%;
+  display: block;
 }
 
-/* Hide default cursor when custom pencil cursor is active (desktop only) */
-html.custom-cursor-active,
-html.custom-cursor-active * {
-  cursor: none !important;
+a {
+  color: inherit;
 }
 
-/* Scrollbar styling for macOS-like appearance */
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 4px solid var(--pix-gold);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: var(--pix-gold);
+  color: var(--pix-ink);
+}
+
+/* Chunky pixel scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 16px;
 }
-
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--pix-wall-deep);
 }
-
 ::-webkit-scrollbar-thumb {
-  background: #B8C4B0;
-  border-radius: 5px;
+  background: var(--pix-gold);
+  border: 4px solid var(--pix-wall-deep);
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #A8C09A;
+/* Shared vocabulary ------------------------------------------------ */
+
+.pixel {
+  font-family: var(--font-pixel);
+  letter-spacing: 1px;
+  line-height: 1.7;
+}
+
+/* The Wilson wordmark: a grid of absolutely placed runs (see Mark.jsx) */
+.mark {
+  position: relative;
+  flex: none;
+}
+
+/* The 4px checker texture used on every felt surface */
+.felt {
+  background-color: var(--pix-wall);
+  background-image: repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.07) 0 4px, rgba(0, 0, 0, 0) 4px 8px),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.03) 0 4px, rgba(0, 0, 0, 0.05) 4px 8px);
+}
+
+/* Cream card with a hard offset shadow — the HUD card, reused everywhere */
+.card {
+  background: var(--pix-cream);
+  color: var(--pix-ink);
+  border: 8px solid var(--pix-black);
+  box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.4);
+  padding: var(--u6);
+}
+
+.skip-link {
+  position: fixed;
+  top: -200px;
+  left: var(--u4);
+  z-index: 300;
+  font-family: var(--font-pixel);
+  font-size: 12px;
+  padding: var(--u3) var(--u4);
+  background: var(--pix-gold);
+  color: var(--pix-ink);
+  border: 4px solid var(--pix-black);
+  text-decoration: none;
+}
+.skip-link:focus-visible {
+  top: var(--u4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

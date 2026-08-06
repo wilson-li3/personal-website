@@ -1,0 +1,42 @@
+/* Shared chrome: a bar across the top carrying the wordmark, and the outbound
+   links. Placement only — each screen colours and sets its own (see
+   Landing.css, Site.css), because they sit on very different backgrounds. */
+
+/* 76px exactly: Landing.jsx fits its scene into the height left under this,
+   so the two numbers have to agree. */
+.chrome-head {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 76px;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 0 32px;
+}
+
+.chrome-mark {
+  display: block;
+  padding: 0;
+}
+
+/* whatever action the screen supplies sits at the far end of the bar */
+.chrome-head > :last-child:not(.mark):not(.chrome-mark) {
+  margin-left: auto;
+}
+
+.chrome-links {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.chrome-links a {
+  text-decoration: none;
+}

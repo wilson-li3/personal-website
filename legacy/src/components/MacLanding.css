@@ -1,4 +1,3 @@
-/* macOS desktop - full viewport, soft neutral green */
 .mac-landing {
   position: fixed;
   inset: 0;
@@ -32,7 +31,6 @@
   z-index: 2;
 }
 
-/* Face ID - small, centered under menu bar */
 .mac-faceid-overlay {
   position: fixed;
   top: 30px;
@@ -58,7 +56,6 @@
   height: 100% !important;
 }
 
-/* Floating Notes window */
 .mac-notes-window {
   position: relative;
   z-index: 1;
@@ -84,7 +81,6 @@
   overflow: hidden;
 }
 
-/* Title bar - spans full width of the window (no side padding) */
 .mac-window-titlebar {
   flex-shrink: 0;
   width: 100%;
@@ -98,7 +94,7 @@
 }
 
 .mac-window-content {
-  padding: 24px 48px 40px;
+  padding: 28px 48px 40px;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -130,7 +126,7 @@
 }
 
 .mac-notes-title {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 700;
   color: #52681D;
   margin: 0;
@@ -145,13 +141,13 @@
   box-shadow: 0 2px 8px rgba(82, 104, 29, 0.04);
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
 
 .mac-notes-preview {
   font-size: 15px;
   color: #52681D;
-  line-height: 1.6;
+  line-height: 1.7;
   margin: 0;
 }
 
@@ -163,19 +159,24 @@
   background: #e8ebdc;
   border: 1px solid #BAC67A;
   border-radius: 8px;
-  padding: 10px 18px;
+  padding: 12px 20px;
   cursor: pointer;
   font-family: inherit;
-  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s;
 }
 
 .mac-browse-button:hover {
   background: #BAC67A;
   color: #1d1d1f;
   border-color: #A8C09A;
+  transform: translateY(-1px);
 }
 
-/* macOS-style dock at bottom */
+.mac-browse-button:active {
+  transform: translateY(0);
+}
+
+/* Dock */
 .mac-dock-wrapper {
   position: relative;
   z-index: 2;
@@ -216,9 +217,13 @@
   position: relative;
   border-radius: 14px;
   overflow: hidden;
+  transition: transform 0.2s ease;
 }
 
-/* Slight zoom in to crop edges + rounded corners */
+.mac-dock-icon:hover {
+  transform: translateY(-4px) scale(1.1);
+}
+
 .mac-dock-icon img {
   width: 104%;
   height: 104%;
@@ -240,9 +245,29 @@
   background: rgba(0, 0, 0, 0.5);
 }
 
+/* Mobile */
 @media (max-width: 640px) {
+  .mac-landing-photo {
+    left: auto;
+    right: -20px;
+    max-width: 200px;
+    width: 45%;
+    opacity: 0.6;
+  }
+
+  .mac-notes-window {
+    padding: 16px 16px 24px;
+    align-items: flex-start;
+    padding-top: 10vh;
+  }
+
+  .mac-window-inner {
+    max-width: 100%;
+  }
+
   .mac-window-content {
-    padding: 20px 24px 28px;
+    padding: 20px 20px 28px;
+    gap: 20px;
   }
 
   .mac-window-titlebar {
@@ -256,15 +281,23 @@
   }
 
   .mac-notes-title {
-    font-size: 22px;
+    font-size: 20px;
   }
 
   .mac-notes-card {
-    padding: 20px 22px;
+    padding: 18px 20px;
   }
 
   .mac-notes-preview {
     font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .mac-browse-button {
+    width: 100%;
+    text-align: center;
+    padding: 14px 20px;
+    font-size: 16px;
   }
 
   .mac-dock-wrapper {
@@ -295,5 +328,17 @@
 
   .mac-dock-icon img {
     border-radius: 12px;
+  }
+}
+
+@media (max-width: 380px) {
+  .mac-dock-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+  }
+
+  .mac-dock-icon img {
+    border-radius: 10px;
   }
 }

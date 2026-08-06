@@ -7,8 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "convert-photos": "node scripts/convert-photos-to-webp.mjs",
-    "thumbs": "node scripts/make-thumbs.mjs"
+    "convert-photos": "node scripts/convert-photos-to-webp.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^9.122.0",
@@ -20,13 +19,8 @@
     "three": "^0.184.0"
   },
   "devDependencies": {
-    "@iconify-json/tabler": "^1.2.35",
-    "@svgr/core": "^8.1.0",
-    "@svgr/plugin-jsx": "^8.1.0",
     "@vitejs/plugin-react": "^4.2.1",
-    "playwright": "^1.61.1",
     "sharp": "^0.33.5",
-    "unplugin-icons": "^23.0.1",
     "vite": "^5.0.8"
   }
 }

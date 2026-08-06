@@ -1,0 +1,457 @@
+/* Landing screen — pixel geometry from the design handoff.
+   Hard edges, 4px grid, stepped transitions only. */
+
+.landing {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  /* Matches BAR in Landing.jsx. The scene is sized against the height left
+     under the bar, so it has to be centred in that same space — without this
+     it centres in the whole window and slides up under the bar, which cuts
+     the tops off the clubs. */
+  padding-top: 76px;
+  /* flat: the weave belongs to .landing-wall, which covers this entirely */
+  background-color: var(--pix-wall);
+  font-family: var(--font-body);
+}
+
+/* The felt, edge to edge, from the top of the page down to the grass line.
+   One layer at one scale — the scene sits on it and draws no wall of its own,
+   so there is no boundary where two weaves have to agree. */
+.landing-wall {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: var(--grass-top);
+  background-color: var(--pix-wall);
+  background-image: repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.07) 0 4px, rgba(0, 0, 0, 0) 4px 8px),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.03) 0 4px, rgba(0, 0, 0, 0.05) 4px 8px);
+}
+
+/* grass continues past the stage, lined up with the stage's own grass line */
+.landing-bleed {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: var(--grass-top);
+  bottom: 0;
+  background-color: var(--pix-grass);
+  background-image: repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.09) 0 4px, rgba(0, 0, 0, 0) 4px 8px),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.05) 0 4px, rgba(0, 0, 0, 0.06) 4px 8px);
+  border-top: var(--divider-h, 8px) solid var(--pix-divider);
+}
+
+.landing-fit {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.scene {
+  position: relative;
+  width: 1280px;
+  height: 720px;
+  overflow: hidden;
+  /* transparent on wide: .landing-wall and .landing-bleed show through */
+  background: none;
+  image-rendering: pixelated;
+  /* how far the bag, clubs, greeting and crest sit right of their handoff
+     coordinates — the HUD stays pinned to the left edge */
+  --rig-shift: 64px;
+}
+
+/* bag + clubs, moved as one */
+.rig {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  transform: translateX(var(--rig-shift));
+}
+
+/* Clubs ------------------------------------------------------------------ */
+
+/* A club's box is a 240px-wide rotated rectangle that is almost entirely
+   empty air, and the six boxes overlap heavily. So the box itself takes no
+   pointer at all: only the shaft strip and the painted head rects do, which
+   makes the hover area the club's own silhouette. Events still bubble up
+   through the box, so hover and click stay on .club. */
+.club {
+  position: absolute;
+  transform-origin: bottom center;
+  transform: rotate(var(--rot));
+  cursor: pointer;
+  pointer-events: none;
+}
+
+.club-shape {
+  position: absolute;
+  inset: 0;
+}
+
+/* The art slides straight up out of the bag. Its parent is rotated, so the
+   translation is written in the club's own frame — rotated by --rot it comes
+   out vertical on screen. */
+.club-shape--art {
+  /* stepped, never smooth — the lift should read as pixel animation */
+  transition: transform 0.1s steps(2);
+}
+
+.club.is-lifted .club-shape--art {
+  transform: translate(calc(-64px * sin(var(--rot))), calc(-64px * cos(var(--rot))));
+}
+
+/* An invisible copy of the silhouette, left behind at the club's rest
+   position. Without it the club slides out from under the pointer, the hover
+   drops, the club falls back under the pointer, and the whole thing stutters.
+   Both copies stay live, so the hit area is rest ∪ lifted and there is no
+   position the pointer can hold that flips the state. */
+.club-shape--hit {
+  opacity: 0;
+}
+
+/* shaft strip, shaft and hosel rects, and every rect inside the head */
+.club-hit,
+.club-shape > div:not(.club-head),
+.club-head > div {
+  pointer-events: auto;
+}
+
+/* A hair wider than the 18px shaft, and run up past the hosel so the pointer
+   crosses from shaft to head without ever falling into a gap. */
+.club-hit {
+  position: absolute;
+  left: 98px;
+  top: -56px;
+  width: 44px;
+  height: calc(100% + 56px);
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.club-hit:focus-visible {
+  outline: 4px solid var(--pix-gold);
+  outline-offset: 2px;
+}
+
+/* The greeting, painted on the wall behind the clubs and the bag, so the
+   bag's own Wilson wordmark reads as the end of the sentence. */
+
+.greeting {
+  position: absolute;
+  /* on the same line as the bag's own wordmark and ending just short of it,
+     so the wall and the bag together read "HI! I'M WILSON" */
+  left: 124px;
+  top: 500px;
+  z-index: 1;
+  margin: 0;
+  transform: translateX(var(--rig-shift));
+  font-family: var(--font-pixel);
+  font-size: 48px;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--pix-cream);
+  text-shadow: 6px 6px 0 rgba(0, 0, 0, 0.35);
+}
+
+/* HUD -------------------------------------------------------------------- */
+
+/* The card gets its own slot, empty until a club is picked up, so nothing
+   else moves when it appears. Wide enough for the longest label
+   ("OUT OF THE ROUGH") so the card never reflows between clubs. */
+.hud-slot {
+  position: absolute;
+  left: 48px;
+  top: 152px;
+  z-index: 11;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 28px;
+}
+
+/* Holds either the hint or a club's card. Its height is fixed to the taller
+   of the two so the button underneath stays put as they swap. */
+.hud-swap {
+  min-height: 108px;
+}
+
+/* the hint runs wider than the card, and has room before the bag */
+.hud-slot .hud-hint {
+  white-space: nowrap;
+}
+
+/* On the felt, the standing line sits under the greeting it belongs to. */
+.hud-standing--stage {
+  position: absolute;
+  left: 124px;
+  top: 560px;
+  z-index: 11;
+  transform: translateX(var(--rig-shift));
+}
+
+/* Shared chrome, coloured for the felt (see Chrome.css for placement). */
+
+/* Translucent, so the felt's weave and the tops of the clubs read through it */
+.landing .chrome-head {
+  color: var(--pix-cream);
+  background: rgba(13, 16, 11, 0.55);
+  border-bottom: 8px solid rgba(27, 29, 33, 0.5);
+}
+
+.landing .chrome-mark:hover {
+  color: var(--pix-gold);
+}
+
+/* Out on the grass rather than jammed into the corner: --grass-top is the
+   divider line, so this drops the links into the middle of the green band. */
+.landing .chrome-links {
+  top: calc(var(--grass-top) + 40px);
+  bottom: auto;
+  left: 88px;
+  gap: 40px;
+  font-family: var(--font-body);
+  font-size: 40px;
+}
+
+.landing .chrome-links a {
+  color: var(--pix-cream);
+  border-bottom: 4px solid rgba(238, 226, 198, 0.35);
+  padding-bottom: 4px;
+  text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.35);
+}
+
+.landing .chrome-links a:hover {
+  color: var(--pix-gold);
+  border-color: var(--pix-gold);
+}
+
+.hud-standing {
+  font-family: var(--font-pixel);
+  font-size: 13px;
+  letter-spacing: 1px;
+  line-height: 1.6;
+  white-space: nowrap;
+  color: var(--pix-gold);
+}
+
+/* Holographic crest -------------------------------------------------------- */
+
+/* 6x the 32px source, so every crest pixel is a crisp 6px block */
+.crest {
+  width: 192px;
+  height: 192px;
+  image-rendering: pixelated;
+}
+
+/* A sticker on the wall: the greeting and the bag both pass over it. */
+.crest--stage {
+  position: absolute;
+  left: 195px;
+  top: 308px;
+  z-index: 0;
+  transform: translateX(var(--rig-shift));
+}
+
+.hud-card {
+  /* wide enough for the longest label ("OFF THE COURSE") so the card never
+     reflows as the pointer moves between clubs */
+  width: 248px;
+  background: var(--pix-cream);
+  border: 8px solid #1b1d21;
+  box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.4);
+  padding: 20px 24px;
+}
+
+/* At rest, one unboxed line marking the clubs as interactive. It occupies the
+   card's slot, so nothing shifts when a club is picked up and swaps it out. */
+.hud-hint {
+  font-family: var(--font-pixel);
+  font-size: 11px;
+  line-height: 1.7;
+  color: rgba(238, 226, 198, 0.7);
+  text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.35);
+}
+
+.hud-card-name {
+  font-family: var(--font-pixel);
+  font-size: 13px;
+  color: var(--pix-red);
+}
+
+.hud-card-label {
+  margin-top: 8px;
+  font-family: var(--font-pixel);
+  font-size: 11px;
+  color: #6b6255;
+}
+
+/* The way in: a Wilson ball, stamped ENTER. ------------------------------- */
+
+.enter {
+  display: block;
+  padding: 0;
+  /* drop-shadow follows the clip-path; box-shadow would draw a square */
+  filter: drop-shadow(8px 8px 0 rgba(0, 0, 0, 0.45));
+}
+
+/* A 16-cell pixel circle: every vertex sits on a 1/16 step, so the edge
+   staircases the way the clubs and the bag do instead of being smoothed. */
+.enter-ball {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 144px;
+  height: 144px;
+  /* concentric hard stops off a high-left light source: reads as a sphere,
+     and the hard stops keep it a stepped ramp rather than a smooth blend */
+  background: radial-gradient(
+    circle at 34% 28%,
+    #ffffff 0 30%,
+    #f0f0f0 30% 48%,
+    #dedede 48% 64%,
+    #c6c6c6 64% 80%,
+    #ababab 80% 100%
+  );
+  clip-path: polygon(
+    31.25% 0, 68.75% 0, 68.75% 6.25%, 81.25% 6.25%, 81.25% 12.5%, 87.5% 12.5%,
+    87.5% 18.75%, 93.75% 18.75%, 93.75% 31.25%, 100% 31.25%, 100% 68.75%,
+    93.75% 68.75%, 93.75% 81.25%, 87.5% 81.25%, 87.5% 87.5%, 81.25% 87.5%,
+    81.25% 93.75%, 68.75% 93.75%, 68.75% 100%, 31.25% 100%, 31.25% 93.75%,
+    18.75% 93.75%, 18.75% 87.5%, 12.5% 87.5%, 12.5% 81.25%, 6.25% 81.25%,
+    6.25% 68.75%, 0 68.75%, 0 31.25%, 6.25% 31.25%, 6.25% 18.75%,
+    12.5% 18.75%, 12.5% 12.5%, 18.75% 12.5%, 18.75% 6.25%, 31.25% 6.25%
+  );
+}
+
+/* Square dimples on a staggered grid, faint enough that the wordmark still
+   reads over them. Scattered placement looked like specks rather than dimples. */
+.enter-dimples {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.07) 0 8px,
+      transparent 8px 24px
+    ),
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.07) 0 8px, transparent 8px 24px);
+  background-blend-mode: multiply;
+  /* the dimple field fades out into the shaded limb */
+  -webkit-mask-image: radial-gradient(circle at 40% 34%, #000 0 62%, transparent 88%);
+  mask-image: radial-gradient(circle at 40% 34%, #000 0 62%, transparent 88%);
+}
+
+.enter-face {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.enter-word {
+  font-family: var(--font-pixel);
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--pix-ink);
+}
+
+/* presses into its shadow */
+.enter:hover {
+  filter: drop-shadow(5px 5px 0 rgba(0, 0, 0, 0.45));
+  transform: translate(3px, 3px);
+}
+
+.enter:hover .enter-word {
+  color: var(--pix-red);
+}
+
+/* Narrow screens: the stage scales to the width, the HUD drops below it
+   at readable size. First tap previews a club, second tap opens it. */
+
+.landing.is-narrow {
+  display: block;
+  padding: 12px 12px 40px;
+}
+
+.landing.is-narrow .landing-fit {
+  margin: 0 auto;
+}
+
+/* framed box on narrow, and it draws its own wall again */
+.landing.is-narrow .scene {
+  box-shadow: 0 0 0 4px #13170f;
+  background: var(--pix-wall);
+}
+
+.landing.is-narrow {
+  background-image: none;
+  background-color: var(--pix-page);
+}
+
+.landing.is-narrow .hud-stack {
+  width: 100%;
+  max-width: 26rem;
+  margin: 24px auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* Narrow pages are taller than the viewport, so pinned chrome would sit on
+   top of the scene. Both blocks drop back into the flow instead. */
+.landing.is-narrow .chrome-head,
+.landing.is-narrow .chrome-links {
+  position: static;
+}
+
+.landing.is-narrow .chrome-head {
+  height: auto;
+  padding: 16px 0 20px;
+  border-bottom-width: 4px;
+  background: none;
+}
+
+/* no grass band to sit on below the scene, so they go back to a plain row */
+.landing.is-narrow .chrome-links {
+  width: 100%;
+  max-width: 26rem;
+  margin: 0 auto;
+  padding-top: 32px;
+  gap: 24px;
+  font-size: 28px;
+}
+
+.landing.is-narrow .hud-hint {
+  white-space: normal;
+  line-height: 1.8;
+}
+
+.hud-standing-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.landing.is-narrow .crest {
+  width: 96px;
+  height: 96px;
+  flex: none;
+}
+
+/* beside the crest there is no room for one line of Press Start 2P */
+.landing.is-narrow .hud-standing {
+  white-space: normal;
+  line-height: 1.8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .club-shape--art {
+    transition: none;
+  }
+}

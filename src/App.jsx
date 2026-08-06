@@ -1,48 +1,30 @@
 import { useState } from 'react'
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
-import './App.css'
-import Layout from './components/Layout'
-import CustomCursor from './components/CustomCursor'
-import MacLanding from './components/MacLanding'
-import Home from './pages/Home'
-import About from './pages/About'
-import Projects from './pages/Projects'
-import Contact from './pages/Contact'
-import QuotesHimym from './pages/QuotesHimym'
-import Photos from './pages/Photos'
-import GymRoutine from './pages/GymRoutine'
-import Doodle from './pages/Doodle'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Landing from './pixel/Landing'
+import Site from './pixel/Site'
+import { legacyRoutes } from './content'
 
-function AppContent() {
-  const location = useLocation()
-  const [hasEnteredNotes, setHasEnteredNotes] = useState(false)
-  const showMacLanding = !hasEnteredNotes
+/*
+ * Two views: the pixel landing screen, and the clubhouse behind TEE OFF.
+ * Old Notes-era routes drop straight into their section.
+ */
+function Screen({ anchor }) {
+  const [target, setTarget] = useState(anchor ?? null)
 
-  if (showMacLanding) {
-    return <MacLanding onEnter={() => setHasEnteredNotes(true)} />
-  }
-
-  return (
-    <Layout>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/quotes-himym" element={<QuotesHimym />} />
-        <Route path="/photos" element={<Photos />} />
-        <Route path="/gym-routine" element={<GymRoutine />} />
-        <Route path="/doodle" element={<Doodle />} />
-      </Routes>
-    </Layout>
-  )
+  if (!target) return <Landing onEnter={setTarget} />
+  return <Site target={target} onHome={() => setTarget(null)} />
 }
 
 function App() {
   return (
     <BrowserRouter>
-      <CustomCursor />
-      <AppContent />
+      <Routes>
+        <Route path="/" element={<Screen />} />
+        {Object.entries(legacyRoutes).map(([path, anchor]) => (
+          <Route key={path} path={path} element={<Screen anchor={anchor} />} />
+        ))}
+        <Route path="*" element={<Screen />} />
+      </Routes>
     </BrowserRouter>
   )
 }

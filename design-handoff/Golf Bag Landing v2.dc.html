@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Pacifico&display=swap" rel="stylesheet" />
+<style>
+  html, body { margin: 0; padding: 0; background: #0f120e; }
+  * { box-sizing: border-box; }
+  a { color: #e8c76a; text-decoration: none; }
+  a:hover { color: #fff3d2; }
+</style>
+</helmet>
+<div style="width: 100vw; height: 100vh; overflow: hidden; display: grid; place-items: center; background: #0f120e; font-family: 'VT323', monospace;">
+  <div style="width: {{ fitW }}px; height: {{ fitH }}px; flex: 0 0 auto;">
+  <div style="position: relative; width: 1280px; height: 720px; overflow: hidden; background: #21402c; box-shadow: 0 0 0 8px #13170f, 0 24px 60px rgba(0,0,0,.6); image-rendering: pixelated; transform: {{ fitTransform }}; transform-origin: top left;">
+
+    <div style="position: absolute; left: 0; top: 0; width: 1280px; height: 596px; background: #21402c; background-image: repeating-linear-gradient(90deg, rgba(0,0,0,.07) 0 4px, rgba(0,0,0,0) 4px 8px), repeating-linear-gradient(0deg, rgba(255,255,255,.03) 0 4px, rgba(0,0,0,.05) 4px 8px);"></div>
+    <div style="position: absolute; left: 0; top: 596px; width: 1280px; height: 124px; background: #4b7a44; background-image: repeating-linear-gradient(90deg, rgba(0,0,0,.09) 0 4px, rgba(0,0,0,0) 4px 8px), repeating-linear-gradient(0deg, rgba(255,255,255,.05) 0 4px, rgba(0,0,0,.06) 4px 8px);"></div>
+    <div style="position: absolute; left: 0; top: 588px; width: 1280px; height: 8px; background: #2b4c33;"></div>
+
+    <div onMouseEnter="{{ hoverWedge }}" onMouseLeave="{{ hoverNone }}" style="position: absolute; left: 520px; top: 270px; width: 240px; height: 290px; transform-origin: bottom center; transform: rotate(-28deg); cursor: pointer; transition: transform .1s steps(2); z-index: 2;" style-hover="transform: translateY(-64px) rotate(-28deg);">
+      <div style="position: absolute; left: 111px; top: 0; width: 18px; height: 290px; background: #9aa2af;"></div>
+      <div style="position: absolute; left: 111px; top: 0; width: 8px; height: 290px; background: #dfe4ec;"></div>
+      <div style="position: absolute; left: 3px; top: -96px; width: 130px; height: 104px; transform-origin: 117px 104px; transform: rotate(36deg);">
+        <div style="position: absolute; left: 108px; top: 40px; width: 18px; height: 64px; background: #b9c0cb;"></div>
+        <div style="position: absolute; left: 108px; top: 40px; width: 8px; height: 64px; background: #e6eaf0;"></div>
+        <div style="position: absolute; left: 34px; top: 0; width: 72px; height: 8px; background: #e6eaf0;"></div>
+        <div style="position: absolute; left: 18px; top: 8px; width: 96px; height: 8px; background: #cfd5de;"></div>
+        <div style="position: absolute; left: 8px; top: 16px; width: 110px; height: 34px; background: #8b95a2; background-image: repeating-linear-gradient(0deg, rgba(30,34,40,.5) 0 4px, rgba(0,0,0,0) 4px 10px);"></div>
+        <div style="position: absolute; left: 4px; top: 16px; width: 8px; height: 34px; background: #e6eaf0;"></div>
+        <div style="position: absolute; left: 8px; top: 50px; width: 110px; height: 12px; background: #5d6672;"></div>
+        <div style="position: absolute; left: 16px; top: 62px; width: 94px; height: 10px; background: #cfd5de;"></div>
+      </div>
+    </div>
+
+    <div onMouseEnter="{{ hoverDriver }}" onMouseLeave="{{ hoverNone }}" style="position: absolute; left: 580px; top: 120px; width: 240px; height: 440px; transform-origin: bottom center; transform: rotate(-13deg); cursor: pointer; transition: transform .1s steps(2); z-index: 6;" style-hover="transform: translateY(-64px) rotate(-13deg);">
+      <div style="position: absolute; left: 111px; top: 0; width: 18px; height: 440px; background: #9aa2af;"></div>
+      <div style="position: absolute; left: 111px; top: 0; width: 8px; height: 440px; background: #dfe4ec;"></div>
+      <div style="position: absolute; left: -67px; top: -128px; width: 210px; height: 140px; transform-origin: 187px 140px; transform: rotate(-6deg);">
+        <div style="position: absolute; left: 178px; top: 100px; width: 18px; height: 40px; background: #17191f;"></div>
+        <div style="position: absolute; left: 56px; top: 4px; width: 104px; height: 10px; background: #17191f;"></div>
+        <div style="position: absolute; left: 36px; top: 14px; width: 136px; height: 10px; background: #22252c;"></div>
+        <div style="position: absolute; left: 22px; top: 24px; width: 160px; height: 12px; background: #8f2630;"></div>
+        <div style="position: absolute; left: 12px; top: 36px; width: 178px; height: 56px; background: #2a2d34;"></div>
+        <div style="position: absolute; left: 12px; top: 36px; width: 178px; height: 6px; background: #3d424b;"></div>
+        <div style="position: absolute; left: 8px; top: 92px; width: 178px; height: 12px; background: #8f2630;"></div>
+        <div style="position: absolute; left: 18px; top: 104px; width: 152px; height: 12px; background: #22252c;"></div>
+        <div style="position: absolute; left: 38px; top: 116px; width: 112px; height: 10px; background: #17191f;"></div>
+        <div style="position: absolute; left: 62px; top: 126px; width: 64px; height: 8px; background: #101215;"></div>
+        <div style="position: absolute; left: 22px; top: 40px; width: 160px; height: 50px; display: grid; place-items: center;">
+          <div style="font-family: 'Pacifico', cursive; font-size: 32px; color: #f2e7cf; transform: rotate(-3deg);">{{ brandName }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div onMouseEnter="{{ hoverIron }}" onMouseLeave="{{ hoverNone }}" style="position: absolute; left: 620px; top: 130px; width: 240px; height: 430px; transform-origin: bottom center; transform: rotate(-4deg); cursor: pointer; transition: transform .1s steps(2); z-index: 8;" style-hover="transform: translateY(-64px) rotate(-4deg);">
+      <div style="position: absolute; left: 111px; top: 0; width: 18px; height: 430px; background: #9aa2af;"></div>
+      <div style="position: absolute; left: 111px; top: 0; width: 8px; height: 430px; background: #dfe4ec;"></div>
+      <div style="position: absolute; left: 3px; top: -100px; width: 130px; height: 108px; transform-origin: 117px 108px; transform: rotate(14deg);">
+        <div style="position: absolute; left: 108px; top: 44px; width: 18px; height: 64px; background: #b9c0cb;"></div>
+        <div style="position: absolute; left: 108px; top: 44px; width: 8px; height: 64px; background: #e6eaf0;"></div>
+        <div style="position: absolute; left: 34px; top: 0; width: 72px; height: 8px; background: #e6eaf0;"></div>
+        <div style="position: absolute; left: 18px; top: 8px; width: 96px; height: 8px; background: #cfd5de;"></div>
+        <div style="position: absolute; left: 10px; top: 16px; width: 108px; height: 40px; background: #8b95a2; background-image: repeating-linear-gradient(0deg, rgba(30,34,40,.5) 0 4px, rgba(0,0,0,0) 4px 10px);"></div>
+        <div style="position: absolute; left: 6px; top: 16px; width: 8px; height: 40px; background: #e6eaf0;"></div>
+        <div style="position: absolute; left: 10px; top: 56px; width: 108px; height: 12px; background: #5d6672;"></div>
+        <div style="position: absolute; left: 20px; top: 68px; width: 90px; height: 10px; background: #cfd5de;"></div>
+      </div>
+    </div>
+
+    <div onMouseEnter="{{ hoverIron2 }}" onMouseLeave="{{ hoverNone }}" style="position: absolute; left: 660px; top: 230px; width: 240px; height: 330px; transform-origin: bottom center; transform: rotate(-1deg); cursor: pointer; transition: transform .1s steps(2); z-index: 7;" style-hover="transform: translateY(-64px) rotate(-1deg);">
+      <div style="position: absolute; left: 111px; top: 0; width: 18px; height: 330px; background: #9aa2af;"></div>
+      <div style="position: absolute; left: 111px; top: 0; width: 8px; height: 330px; background: #dfe4ec;"></div>
+      <div style="position: absolute; left: 3px; top: -96px; width: 130px; height: 104px; transform-origin: 117px 104px; transform: rotate(-9deg) scaleX(-1);">
+        <div style="position: absolute; left: 108px; top: 40px; width: 18px; height: 64px; background: #b9c0cb;"></div>
+        <div style="position: absolute; left: 108px; top: 40px; width: 8px; height: 64px; background: #e6eaf0;"></div>
+        <div style="position: absolute; left: 36px; top: 0; width: 70px; height: 8px; background: #e6eaf0;"></div>
+        <div style="position: absolute; left: 22px; top: 8px; width: 92px; height: 8px; background: #cfd5de;"></div>
+        <div style="position: absolute; left: 14px; top: 16px; width: 104px; height: 36px; background: #97a0ad; background-image: repeating-linear-gradient(0deg, rgba(30,34,40,.5) 0 4px, rgba(0,0,0,0) 4px 10px);"></div>
+        <div style="position: absolute; left: 10px; top: 16px; width: 8px; height: 36px; background: #e6eaf0;"></div>
+        <div style="position: absolute; left: 14px; top: 52px; width: 104px; height: 12px; background: #5d6672;"></div>
+        <div style="position: absolute; left: 24px; top: 64px; width: 86px; height: 10px; background: #cfd5de;"></div>
+      </div>
+    </div>
+
+    <div onMouseEnter="{{ hoverWood }}" onMouseLeave="{{ hoverNone }}" style="position: absolute; left: 690px; top: 150px; width: 240px; height: 410px; transform-origin: bottom center; transform: rotate(14deg); cursor: pointer; transition: transform .1s steps(2); z-index: 4;" style-hover="transform: translateY(-64px) rotate(14deg);">
+      <div style="position: absolute; left: 111px; top: 0; width: 18px; height: 410px; background: #9aa2af;"></div>
+      <div style="position: absolute; left: 111px; top: 0; width: 8px; height: 410px; background: #dfe4ec;"></div>
+      <div style="position: absolute; left: -20px; top: -108px; width: 160px; height: 120px; transform-origin: 140px 120px; transform: rotate(-13deg) scaleX(-1);">
+        <div style="position: absolute; left: 131px; top: 86px; width: 18px; height: 34px; background: #33373e;"></div>
+        <div style="position: absolute; left: 44px; top: 0; width: 80px; height: 10px; background: #3a3f47;"></div>
+        <div style="position: absolute; left: 26px; top: 10px; width: 112px; height: 10px; background: #494f59;"></div>
+        <div style="position: absolute; left: 14px; top: 20px; width: 134px; height: 48px; background: #565d68;"></div>
+        <div style="position: absolute; left: 14px; top: 20px; width: 134px; height: 6px; background: #6e7580;"></div>
+        <div style="position: absolute; left: 10px; top: 68px; width: 138px; height: 12px; background: #3a3f47;"></div>
+        <div style="position: absolute; left: 18px; top: 80px; width: 116px; height: 10px; background: #8f2630;"></div>
+        <div style="position: absolute; left: 36px; top: 90px; width: 80px; height: 8px; background: #22252c;"></div>
+        <div style="position: absolute; left: 34px; top: 22px; width: 94px; height: 46px; display: grid; place-items: center; transform: scaleX(-1);">
+          <div style="font-family: 'Pacifico', cursive; font-size: 26px; color: #e6dcc4;">{{ woodMark }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div onMouseEnter="{{ hoverPutter }}" onMouseLeave="{{ hoverNone }}" style="position: absolute; left: 760px; top: 260px; width: 240px; height: 300px; transform-origin: bottom center; transform: rotate(24deg); cursor: pointer; transition: transform .1s steps(2); z-index: 3;" style-hover="transform: translateY(-64px) rotate(24deg);">
+      <div style="position: absolute; left: 111px; top: 0; width: 18px; height: 300px; background: #9aa2af;"></div>
+      <div style="position: absolute; left: 111px; top: 0; width: 8px; height: 300px; background: #dfe4ec;"></div>
+      <div style="position: absolute; left: 81px; top: -64px; width: 200px; height: 72px; transform-origin: 39px 72px; transform: rotate(-28deg);">
+        <div style="position: absolute; left: 30px; top: 32px; width: 18px; height: 40px; background: #b9c0cb;"></div>
+        <div style="position: absolute; left: 30px; top: 32px; width: 8px; height: 40px; background: #e6eaf0;"></div>
+        <div style="position: absolute; left: 14px; top: 0; width: 172px; height: 8px; background: #ded7bd;"></div>
+        <div style="position: absolute; left: 10px; top: 8px; width: 180px; height: 18px; background: #b7ae93;"></div>
+        <div style="position: absolute; left: 10px; top: 26px; width: 180px; height: 10px; background: #8b8269;"></div>
+        <div style="position: absolute; left: 16px; top: 36px; width: 168px; height: 8px; background: #4c4636;"></div>
+      </div>
+    </div>
+
+    <div style="position: absolute; left: 452px; top: 380px; width: 596px; height: 340px; z-index: 10;">
+      <div style="position: absolute; left: 96px; top: 0; width: 404px; height: 12px; background: #1b1d21;"></div>
+      <div style="position: absolute; left: 72px; top: 12px; width: 452px; height: 16px; background: #1b1d21;"></div>
+      <div style="position: absolute; left: 56px; top: 28px; width: 484px; height: 56px; background: #24262b; background-image: repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 4px, rgba(0,0,0,.22) 4px 12px);"></div>
+      <div style="position: absolute; left: 96px; top: 20px; width: 404px; height: 20px; background: #0d0e11;"></div>
+      <div style="position: absolute; left: 56px; top: 84px; width: 484px; height: 12px; background: #101215;"></div>
+
+      <div style="position: absolute; left: 48px; top: 96px; width: 500px; height: 96px; background: #eee2c6; background-image: repeating-linear-gradient(90deg, rgba(0,0,0,.05) 0 4px, rgba(0,0,0,0) 4px 8px);"></div>
+      <div style="position: absolute; left: 48px; top: 96px; width: 500px; height: 8px; background: #fff6e2;"></div>
+      <div style="position: absolute; left: 48px; top: 184px; width: 500px; height: 8px; background: #c9bda2;"></div>
+      <div style="position: absolute; left: 48px; top: 96px; width: 500px; height: 96px; display: grid; place-items: center;">
+        <div style="font-family: 'Pacifico', cursive; font-size: 62px; line-height: 1; color: #96222c; text-shadow: 4px 4px 0 rgba(0,0,0,.15);">{{ brandName }}</div>
+      </div>
+      <div style="position: absolute; left: 40px; top: 192px; width: 516px; height: 12px; background: #1b1d21;"></div>
+
+      <div style="position: absolute; left: 44px; top: 204px; width: 508px; height: 136px; background: #a02b34; background-image: repeating-linear-gradient(90deg, rgba(0,0,0,.12) 0 4px, rgba(0,0,0,0) 4px 8px), repeating-linear-gradient(0deg, rgba(255,255,255,.05) 0 4px, rgba(0,0,0,.07) 4px 8px);"></div>
+      <div style="position: absolute; left: 44px; top: 204px; width: 24px; height: 136px; background: rgba(255,255,255,.12);"></div>
+      <div style="position: absolute; left: 520px; top: 204px; width: 32px; height: 136px; background: rgba(0,0,0,.22);"></div>
+      <div style="position: absolute; left: 140px; top: 240px; width: 320px; height: 100px; background: #8c222b; border: 8px solid #6d181f;"></div>
+      <div style="position: absolute; left: 164px; top: 268px; width: 272px; height: 12px; background: #1b1d21;"></div>
+      <div style="position: absolute; left: 164px; top: 268px; width: 272px; height: 4px; background: #cfc7b2;"></div>
+      <div style="position: absolute; left: 156px; top: 260px; width: 24px; height: 28px; background: #d5dae3;"></div>
+
+      <div style="position: absolute; left: 20px; top: 132px; width: 28px; height: 208px; background: #8c222b;"></div>
+      <div style="position: absolute; left: 4px; top: 156px; width: 20px; height: 184px; background: #6d181f;"></div>
+      <div style="position: absolute; left: 20px; top: 132px; width: 28px; height: 12px; background: #b5323c;"></div>
+      <div style="position: absolute; left: 552px; top: 140px; width: 24px; height: 200px; background: #8c222b;"></div>
+      <div style="position: absolute; left: 572px; top: 168px; width: 20px; height: 172px; background: #6d181f;"></div>
+
+      <div style="position: absolute; left: 496px; top: 176px; width: 12px; height: 40px; background: #b9bec9;"></div>
+      <div style="position: absolute; left: 480px; top: 216px; width: 48px; height: 76px; background: #2f2a26; border: 8px solid #1b1d21;"></div>
+      <div style="position: absolute; left: 496px; top: 236px; width: 16px; height: 32px; background: #96222c;"></div>
+    </div>
+
+    <div style="position: absolute; left: 48px; top: 88px; width: 316px; z-index: 11;">
+      <div style="font-family: 'Press Start 2P', monospace; font-size: 13px; letter-spacing: 2px; color: #cfe0c4; margin-bottom: 20px;">{{ brandSub }}</div>
+      <sc-if value="{{ isNone }}" hint-placeholder-val="{{ true }}">
+        <div style="background: rgba(12,20,14,.75); border: 8px solid #eee2c6; padding: 20px 24px;">
+          <div style="font-family: 'Press Start 2P', monospace; font-size: 13px; line-height: 1.7; color: #eee2c6;">PICK A CLUB</div>
+          <div style="margin-top: 12px; font-size: 22px; line-height: 1.1; color: #cfe0c4;">Hover any club and it lifts out of the bag.</div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ isDriver }}" hint-placeholder-val="{{ false }}">
+        <div style="background: #eee2c6; border: 8px solid #1b1d21; box-shadow: 10px 10px 0 rgba(0,0,0,.4); padding: 20px 24px;">
+          <div style="font-family: 'Press Start 2P', monospace; font-size: 13px; color: #96222c;">DRIVER</div>
+          <div style="margin-top: 8px; font-family: 'Press Start 2P', monospace; font-size: 11px; color: #6b6255;">WHO I AM</div>
+          <div style="margin-top: 14px; font-size: 23px; line-height: 1.1; color: #241d18;">Big swings first. I build software and design interfaces, currently studying at Waterloo.</div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ isWood }}" hint-placeholder-val="{{ false }}">
+        <div style="background: #eee2c6; border: 8px solid #1b1d21; box-shadow: 10px 10px 0 rgba(0,0,0,.4); padding: 20px 24px;">
+          <div style="font-family: 'Press Start 2P', monospace; font-size: 13px; color: #96222c;">5 WOOD</div>
+          <div style="margin-top: 8px; font-family: 'Press Start 2P', monospace; font-size: 11px; color: #6b6255;">WORK</div>
+          <div style="margin-top: 14px; font-size: 23px; line-height: 1.1; color: #241d18;">Internships, shipped products, and the projects I keep coming back to.</div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ isIron }}" hint-placeholder-val="{{ false }}">
+        <div style="background: #eee2c6; border: 8px solid #1b1d21; box-shadow: 10px 10px 0 rgba(0,0,0,.4); padding: 20px 24px;">
+          <div style="font-family: 'Press Start 2P', monospace; font-size: 13px; color: #96222c;">7 IRON</div>
+          <div style="margin-top: 8px; font-family: 'Press Start 2P', monospace; font-size: 11px; color: #6b6255;">TOOLKIT</div>
+          <div style="margin-top: 14px; font-size: 23px; line-height: 1.1; color: #241d18;">TypeScript, React, Python, Figma. The club I hit most often.</div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ isIron2 }}" hint-placeholder-val="{{ false }}">
+        <div style="background: #eee2c6; border: 8px solid #1b1d21; box-shadow: 10px 10px 0 rgba(0,0,0,.4); padding: 20px 24px;">
+          <div style="font-family: 'Press Start 2P', monospace; font-size: 13px; color: #96222c;">9 IRON</div>
+          <div style="margin-top: 8px; font-family: 'Press Start 2P', monospace; font-size: 11px; color: #6b6255;">OFF THE COURSE</div>
+          <div style="margin-top: 14px; font-size: 23px; line-height: 1.1; color: #241d18;">Golf, film photography, and a long list of half-finished side quests.</div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ isWedge }}" hint-placeholder-val="{{ false }}">
+        <div style="background: #eee2c6; border: 8px solid #1b1d21; box-shadow: 10px 10px 0 rgba(0,0,0,.4); padding: 20px 24px;">
+          <div style="font-family: 'Press Start 2P', monospace; font-size: 13px; color: #96222c;">WEDGE</div>
+          <div style="margin-top: 8px; font-family: 'Press Start 2P', monospace; font-size: 11px; color: #6b6255;">OUT OF THE ROUGH</div>
+          <div style="margin-top: 14px; font-size: 23px; line-height: 1.1; color: #241d18;">Problems I have dug my way out of, and what they taught me.</div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ isPutter }}" hint-placeholder-val="{{ false }}">
+        <div style="background: #eee2c6; border: 8px solid #1b1d21; box-shadow: 10px 10px 0 rgba(0,0,0,.4); padding: 20px 24px;">
+          <div style="font-family: 'Press Start 2P', monospace; font-size: 13px; color: #96222c;">PUTTER</div>
+          <div style="margin-top: 8px; font-family: 'Press Start 2P', monospace; font-size: 11px; color: #6b6255;">GET IN TOUCH</div>
+          <div style="margin-top: 14px; font-size: 23px; line-height: 1.1; color: #241d18;">Short game, short email. Say hello and I will write back.</div>
+        </div>
+      </sc-if>
+      <div style="margin-top: 28px; display: flex; flex-direction: column; gap: 20px;">
+        <a href="#" style="font-family: 'Press Start 2P', monospace; font-size: 16px; color: #241d18; background: #e8c76a; border: 6px solid #1b1d21; box-shadow: 6px 6px 0 rgba(0,0,0,.45); padding: 16px 24px; align-self: flex-start;" style-hover="background: #fff3d2;">{{ enterLabel }}</a>
+        <div style="display: flex; align-items: center; gap: 16px; font-size: 24px;">
+          <a href="#" style="color: #eee2c6; border-bottom: 4px solid rgba(238,226,198,.35); padding-bottom: 2px;" style-hover="color: #e8c76a; border-color: #e8c76a;">GitHub</a>
+          <a href="#" style="color: #eee2c6; border-bottom: 4px solid rgba(238,226,198,.35); padding-bottom: 2px;" style-hover="color: #e8c76a; border-color: #e8c76a;">LinkedIn</a>
+          <a href="#" style="color: #eee2c6; border-bottom: 4px solid rgba(238,226,198,.35); padding-bottom: 2px;" style-hover="color: #e8c76a; border-color: #e8c76a;">Email</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1328,&quot;height&quot;:768},&quot;brandName&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Wilson&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;brandSub&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;PORTFOLIO / 2026&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;woodMark&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;W&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;enterLabel&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;TEE OFF&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { hot: null, fit: 1 };
+  set(h) { this.setState({ hot: h }); }
+  fitNow = () => {
+    const fit = Math.min(1, (window.innerWidth - 48) / 1296, (window.innerHeight - 48) / 736);
+    if (fit !== this.state.fit) this.setState({ fit });
+  };
+  componentDidMount() { this.fitNow(); window.addEventListener("resize", this.fitNow); }
+  componentWillUnmount() { window.removeEventListener("resize", this.fitNow); }
+  renderVals() {
+    const p = this.props, h = this.state.hot;
+    return {
+      fitTransform: "scale(" + this.state.fit + ")",
+      fitW: Math.round(1280 * this.state.fit),
+      fitH: Math.round(720 * this.state.fit),
+      brandName: p.brandName ?? "Wilson",
+      woodMark: p.woodMark ?? "W",
+      brandSub: p.brandSub ?? "PORTFOLIO / 2026",
+      enterLabel: p.enterLabel ?? "TEE OFF",
+      hoverDriver: () => this.set("driver"),
+      hoverWood: () => this.set("wood"),
+      hoverIron: () => this.set("iron"),
+      hoverIron2: () => this.set("iron2"),
+      hoverWedge: () => this.set("wedge"),
+      hoverPutter: () => this.set("putter"),
+      hoverNone: () => this.set(null),
+      isNone: h === null,
+      isDriver: h === "driver",
+      isWood: h === "wood",
+      isIron: h === "iron",
+      isIron2: h === "iron2",
+      isWedge: h === "wedge",
+      isPutter: h === "putter"
+    };
+  }
+}
+</script>
+</body>
+</html>
